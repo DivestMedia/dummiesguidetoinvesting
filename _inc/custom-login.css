@@ -1,0 +1,76 @@
+
+
+
+body{background: #f5d56e}
+ #login h1 a, .login h1 a {
+	background: url(http://azcaregiver.org/wp-content/uploads/2013/09/logo-sm.png) no-repeat !important;
+	padding-bottom: 5px;
+	padding-left: 252px;
+}
+.login form{width:290px;
+background: #fbe49a url(mountain-login.jpg) bottom center no-repeat!important;
+background-size:cover;
+
+
+
+}
+a{color:#333!important}
+a:hover{color:#ed6a31!important}
+
+.login label {
+  font-size: 12px;
+  color: #555555;
+}
+
+.login input[type="text"]{
+  background-color: #ffffff;
+  border-color:#dddddd;
+  -webkit-border-radius: 4px;
+}
+.login input[type="text"]:hover,
+.login input[type="text"]:focus
+{
+  background-color: #fff;
+  border-color:#ee9e38;
+  outline-color:#ee9e38 !important;
+}
+.login input[type="password"]{
+  background-color: #ffffff;
+  border-color:#dddddd;
+  -webkit-border-radius: 4px;
+}
+.login input[type="password"]:hover,
+.login input[type="password"]:focus
+{
+  background-color: #fff;
+  border-color:#ee9e38;
+  outline-color:#ee9e38 !important;
+}
+
+.login .button-primary {
+  width: 120px;
+  float:right;
+  text-shadow: 0 -1px 1px rgba(0,0,0,0.3);
+  color: #ffffff;
+  -webkit-border-radius: 4px;
+  border: 2px solid #d4d0ba;
+  padding: 5px;
+  background: #e55627; /* Old browsers */
+	background: -webkit-linear-gradient(top, #e05d22 0%, #d94412 100%); /* Chrome 10+, Safari 5.1+ */
+	background:   linear-gradient(to bottom, #e05d22 0%, #d94412 100%); /* W3C */
+	border: none;
+	border-bottom: 3px solid #b93207;
+	border-radius: 2px;
+	color: #fff;
+	display: inline-block;
+	padding: 11px 24px 10px;
+	text-decoration: none;
+}
+
+.login .button-primary:hover,.login .button-primary:active  {
+background: #ed6a31; /* Old browsers */
+	background: -webkit-linear-gradient(top, #ed6a31 0%, #e55627 100%); /* Chrome 10+, Safari 5.1+ */
+	background:   linear-gradient(to bottom, #ed6a31 0%, #e55627 100%); /* W3C */
+	outline: none;
+	border-color:#e55627;
+}
