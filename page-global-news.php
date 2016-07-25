@@ -15,7 +15,7 @@ get_header();
 						<div id="portfolio" class="clearfix portfolio-isotope portfolio-isotope-4" style="position: relative;">
 							<?php
 								$_curcategory = 'latest-news';
-	        					$_curlimit = 20;
+	        					$_curlimit = 32;
 	        					if(!empty(get_option('cgp_server_base_url')))
 									$_cururl = get_option('cgp_server_base_url');
 								$_posts =  do_shortcode( '[CGP_GENERATE_POSTS url="'.$_cururl.'" limit="'.$_curlimit.'" category="'.$_curcategory.'"]' );

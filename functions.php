@@ -4,6 +4,7 @@
 
 include_once('_inc/backstage_template.php');
 include_once('_inc/custom-login.php');
+include_once('_inc/custom-page-template.php');
 
 
 
@@ -162,3 +163,5 @@ class custom_xyren_smarty_walker_nav_menu extends Walker_Nav_Menu {
         $output .= apply_filters( 'walker_nav_menu_start_el', $item_output, $item, $depth, $args );
     }
 }
+
+$CustomPageTemplate = New CustomPageTemplate();
