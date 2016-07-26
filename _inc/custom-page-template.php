@@ -14,7 +14,7 @@
     public function prefix_register_query_var($vars){
       $vars[] = 'ft';
       $vars[] = 'fi';
-      $vars[] = '_tem';
+      $vars[] = 'ctem';
       return $vars;
     }
 
@@ -26,7 +26,8 @@
     public function rewrite(){
       $newrules = array();
 
-      $newrules['latest-news/(.*)/(.*)'] = 'index.php?_tem=latest-news&fi=$matches[1]&ft=$matches[2]';
+      $newrules['community/media/e-books/(.*)/(.*)'] = 'index.php?ctem=e-books&fi=$matches[1]&ft=$matches[2]';
+      $newrules['latest-news/(.*)/(.*)'] = 'index.php?ctem=latest-news&fi=$matches[1]&ft=$matches[2]';
       $newrules['latest-news'] = 'index.php';
 
       return $newrules;
@@ -51,10 +52,15 @@
 
       $_feedid = get_query_var( 'fi' );
       $_feedtitle = get_query_var( 'ft' );
-      $_feedtemplate = get_query_var( '_tem' );
+      $_feedtemplate = get_query_var( 'ctem' );
       if(!empty($_feedtemplate)){
         switch ($_feedtemplate) {
           case 'latest-news':
+            $_access = get_stylesheet_directory() . '/_template/custom-'.$_feedtemplate.'.php';
+            include_once($_access);
+            die();
+          break;
+          case 'e-books':
             $_access = get_stylesheet_directory() . '/_template/custom-'.$_feedtemplate.'.php';
             include_once($_access);
             die();

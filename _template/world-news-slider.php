@@ -5,9 +5,7 @@
 	<?php
 		$_curcategory = 'latest-news';
 		$_curlimit = 10;
-		if(!empty(get_option('cgp_server_base_url')))
-			$_cururl = get_option('cgp_server_base_url');
-		$_posts =  do_shortcode( '[CGP_GENERATE_POSTS url="'.$_cururl.'" limit="'.$_curlimit.'" category="'.$_curcategory.'"]' );
+		$_posts =  do_shortcode( '[CGP_GENERATE_POSTS limit="'.$_curlimit.'" category="'.$_curcategory.'"]' );
      	$_posts = json_decode($_posts);
      	if($_posts!==NULL){
      		 $newimgsrc = [
@@ -45,13 +43,13 @@
  				  	$p->featured_image = $newimgsrc[rand(0,count($newimgsrc)-1)];
      			}
      			$_postcontent = substr(strip_tags(html_entity_decode($p->post_content)),0,150).'...';
-
+     			$_custom_url = esc_url(home_url( '/' ).'latest-news/'.$p->ID.'/'.$CustomPageTemplate->seoUrl($p->post_title));
      			?>
 				<div class="img-hover">
-					<a href="<?=$p->guid?>">
+					<a href="<?=$_custom_url?>">
 						<img class="img-responsive" src="<?=$p->featured_image?>" alt="<?=$p->post_title?>"  style="height:149px;">
 					</a>
-					<h4 class="text-left margin-top-20"><a href="<?=$p->guid?>"><?=$p->post_title?></a></h4>
+					<h4 class="text-left margin-top-20"><a href="<?=$_custom_url?>"><?=$p->post_title?></a></h4>
 					<p class="text-left"><?=$_postcontent?></p>
 				</div>
      			<?php

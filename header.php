@@ -82,7 +82,8 @@
 				<!-- /Top Nav -->
 			</div>
 			<div class="cont-askanexpert">
-				<a href="#" title="Ask an Expert"><img class="img-responsive" src="<?=CUSTOM_ASSETS?>askanexpert.png" alt=""></a> 
+				<a class="askanexpert-avatar" href="#" title="Ask an Expert"><img class="img-responsive" src="<?=CUSTOM_ASSETS?>askanexpert_avatar.png" alt=""></a> 
+				<div class="askanexpert-message"><img class="img-responsive" src="<?=CUSTOM_ASSETS?>askanexpert-message.png" alt=""></div>
 				<button class="btn btn-warning btn-block btn-custom yellow btn-askanexpert"> ASK AN EXPERT</button>
 			</div>
 			<? 

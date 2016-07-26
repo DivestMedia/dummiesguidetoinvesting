@@ -1,4 +1,20 @@
 jQuery(window).ready(function () {
+	var flag = 1;
+	$(window).scroll(function (event) {
+	    var scroll = $(window).scrollTop();
+	    var sliderheight = $('#slider').height();
+	    var headerheight = $('#header').height();
+	    if((sliderheight+headerheight)<scroll&&flag){
+	    	flag = 0;
+			$('.cont-askanexpert').fadeIn(500);
+			$('.askanexpert-avatar').animate({top: '10px'},1500);
+			setTimeout(function(){
+				$('.askanexpert-message').fadeIn(500);
+			},1700);
+	    }
+	});
+	
+
 	/** Isotope Blog
 	 *********************** **/
 	var blog_isotope_container = jQuery("#blog.blog-isotope");
