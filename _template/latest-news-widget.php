@@ -1,14 +1,12 @@
 <!-- latest news -->
 <h3 class="hidden-xs size-16 margin-bottom-20">LATEST NEWS</h3>
 <?php 
-	if(empty($_posts)){
 		$_curcategory = 'latest-news';
 		$_curlimit = 5;
 		if(!empty(get_option('cgp_server_base_url')))
 			$_cururl = get_option('cgp_server_base_url');
 		$_posts =  do_shortcode( '[CGP_GENERATE_POSTS limit="'.$_curlimit.'" category="'.$_curcategory.'"]' );
 		$_posts = json_decode($_posts);
-	}
 	$p_limit = 5;
 	foreach($_posts as $p){
 		if($p->ID!=$_feedid){

@@ -43,7 +43,7 @@
  				  	$p->featured_image = $newimgsrc[rand(0,count($newimgsrc)-1)];
      			}
      			$_postcontent = substr(strip_tags(html_entity_decode($p->post_content)),0,150).'...';
-     			$_custom_url = esc_url(home_url( '/' ).'latest-news/'.$p->ID.'/'.$CustomPageTemplate->seoUrl($p->post_title));
+     			$_custom_url = esc_url(home_url( '/' ).'latest-news/'.$p->ID.'/'.CustomPageTemplate::seoUrl($p->post_title));
      			?>
 				<div class="img-hover">
 					<a href="<?=$_custom_url?>">

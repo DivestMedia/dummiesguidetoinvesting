@@ -147,7 +147,10 @@
 
 							<hr>
 
-							<?php include_once(get_stylesheet_directory().'/_template/latest-news-widget.php');?>
+							<?php 
+							if(is_active_sidebar('sidebar-single'))
+									dynamic_sidebar('sidebar-single');
+							// include_once(get_stylesheet_directory().'/_template/latest-news-widget.php');?>
 
 							<!-- TAGS -->
 							<!-- <h3 class="hidden-xs size-16 margin-bottom-20">TAGS</h3>
