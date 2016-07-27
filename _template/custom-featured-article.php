@@ -1,7 +1,7 @@
 <?php
   get_header();
   	$_curcategory = $_feedcategory;
-	$_curlimit = 1;
+	$_curlimit = 50;
 	$_posts =  do_shortcode( '[CGP_GENERATE_POSTS limit="'.$_curlimit.'" category="'.$_curcategory.'"]' );
 	$_posts = json_decode($_posts);
 	$_post = $_posts[CustomPageTemplate::post_search($_feedid, $_posts)];
@@ -47,7 +47,7 @@
 				</div>
 
 				<!-- article content -->
-				<p class="dropcap"><p><?=do_shortcode($_post->post_content)?></p></p>
+				<span class="cont-article-content"><?=str_replace('/'.$_curcategory.'/',home_url( '/' ).'featured-article/'.$_curcategory,do_shortcode($_post->post_content))?></span>
 							
 				<div class="divider divider-dotted"><!-- divider --></div>
 
@@ -142,7 +142,10 @@
 
 							<hr>
 
-							<?php include_once(get_stylesheet_directory().'/_template/latest-news-widget.php');?>
+							<?php 
+								if(is_active_sidebar('sidebar-single'))
+									dynamic_sidebar('sidebar-single');
+							// include_once(get_stylesheet_directory().'/_template/latest-news-widget.php');?>
 
 							<!-- TAGS -->
 							<!-- <h3 class="hidden-xs size-16 margin-bottom-20">TAGS</h3>

@@ -27,9 +27,8 @@
 
     public function rewrite(){
       $newrules = array();
-
-      $newrules['featured-article/(.*)'] = 'index.php?ctem=featured-article&ccat=$matches[1]';
       $newrules['featured-article/(.*)/(.*)/(.*)'] = 'index.php?ctem=featured-article&ccat=$matches[1]&fi=$matches[2]&ft=$matches[3]';
+      $newrules['featured-article/(.*)'] = 'index.php?ctem=featured-article&ccat=$matches[1]';
       $newrules['community/media/e-books/(.*)/(.*)'] = 'index.php?ctem=e-books&fi=$matches[1]&ft=$matches[2]';
       $newrules['latest-news/(.*)/(.*)'] = 'index.php?ctem=latest-news&fi=$matches[1]&ft=$matches[2]';
       $newrules['latest-news'] = 'index.php';
@@ -79,7 +78,7 @@
                 die();
               }else{
                 $_access = get_stylesheet_directory() . '/_template/custom-featured-articles.php';
-                var_dump($_access);
+                include_once($_access);
                 die();
               }
             }
@@ -132,7 +131,7 @@
       return do_shortcode('<hr>'.$content);
     }
     public function add_vc_column_text($params,$content = null){
-      return html_entity_decode(nl2br($content));
+      return html_entity_decode($content);
     }
     public function add_lvca_team($params,$content = null){
       return do_shortcode('<div class="cont-member">'.$content.'</div>');
@@ -145,7 +144,7 @@
         if(in_array($key, $param_index)){
           $cur_key = $key;
         }
-        $new_params[$cur_key] .= preg_replace("/[^a-zA-Z0-9<>@.]+/", "", html_entity_decode($value, ENT_QUOTES)).' ';
+        $new_params[$cur_key] .= preg_replace("/[\"]+/", "", html_entity_decode($value, ENT_QUOTES)).' ';
       }
       $new_params['member_name'] .= $new_params[0];
       unset($new_params[0]);

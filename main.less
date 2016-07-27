@@ -13,23 +13,37 @@ body{
 		a.logo{
 			width: 70%;
     		max-width: 330px;
+    		max-height: 57px;
     		img{
     			width: 100%;
     		}
 		}
 	} 
 	.cont-askanexpert{
+		display: none;
 		position: fixed;
-		top: 55%;
+		bottom: 50px;
 		right: 0;
 		z-index: 1;
 		cursor: pointer;
+	    height: 200px;
+    	width: 230px;
+    	overflow: hidden;
 		.btn-askanexpert{
 			width: 90%;
 		    margin: 0 auto;
 		    position: absolute;
-		    bottom: 10px;
+		    bottom: 0;
 		    left: 13px;
+		}
+		.askanexpert-avatar{
+		    top: 200px;
+    		position: absolute;
+		}
+		.askanexpert-message{
+			display: none;
+			position: absolute;
+			top: 10px;
 		}
 	}
 	#features{
@@ -178,6 +192,20 @@ body{
 		.portfolio-item{
 			padding: 0 15px 30px 15px !important;
 			margin: 0 !important;
+			&.cont-e-books{
+				.item-hover{
+					span.inner{
+						margin-top: 0;
+						top: 20%;
+					}
+					h4{
+						color: #fff;
+						font-size: 22px;
+					    padding: 0 10px;
+					    line-height: normal;
+					}
+				}
+			}
 		}
 	}
 
@@ -185,6 +213,12 @@ body{
 		.blog-post-item{
 			padding: 0 15px 30px 15px !important;
 			margin: 0 !important;
+		}
+	}
+	div.cont-e-book-details{
+		min-height: 420px;
+		img{
+			width: 30% !important;
 		}
 	}
 	div.cont-upcoming-ipo,div.cont-brokerage-firm{
@@ -208,6 +242,18 @@ body{
 		    width: 100%;
 		    background-size: cover;
 		    background-position: center center;
+		}
+	}
+	div.cont-featured-article{
+		figure{
+		    height: 180px;
+		    background-repeat: no-repeat;
+		    width: 100%;
+		    background-size: cover;
+		    background-position: center center;
+		}
+		label{
+			max-width: none;
 		}
 	}
 	div.cont-find-a-broker{
@@ -239,5 +285,40 @@ body{
 				font-size: 13px;
 			}
 		}
+	}
+	.cont-member{
+		background-color: #2b2b2b;
+		padding: 10px;
+		font-size: 13px;
+		color: #ffffff;
+		.member-name{
+			color: #ffd416;
+			font-size: 15px;
+		    margin-bottom: 10px;	
+		}
+		.member-position{
+			font-size: 14px;
+			margin-bottom: 10px;
+		}
+		.member-image{
+		    width: 20%;
+		    max-width: 165px;
+		}
+	}
+	.cont-article-content{		    
+		white-space: pre-wrap; 
+		ul{
+			margin-bottom: 0;
+		}
+	}
+	#table-data tr td{
+	    border: 1px solid black;
+	    padding: 5px;
+	}
+	#table-data tr td:first-child{
+	    color: #27ae60;
+	}
+	#table-data tr td a{
+	    cursor:pointer;
 	}
 }
