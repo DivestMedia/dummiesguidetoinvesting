@@ -144,41 +144,62 @@ get_header();
 					</header>
 
 					<!-- FEATURED BOXES 3 -->
-					<div class="row">
+					<div class="row cont-featured-article">
 						<div class="col-md-3 col-sm-6 margin-bottom-10">
-							<figure class="">
-								<img class="img-responsive" src="<?=CUSTOM_ASSETS?>images/demo/451x300/1-min.jpg" alt="" />
-							</figure>
+							<?php
+								$_curcategory = 'rogue-trader';
+								$_curlimit = 1;
+								$_posts =  do_shortcode( '[CGP_GENERATE_POSTS limit="'.$_curlimit.'" category="'.$_curcategory.'"]' );
+								$_posts = json_decode($_posts);
+								$_post = $_posts[0];
+								$_postcontent = substr(strip_tags(html_entity_decode($_post->post_excerpt)),0,150).'...';
+								$_custom_url = esc_url(home_url( '/' ).'featured-article/'.$_curcategory.'/'.$_post->ID.'/'.$CustomPageTemplate->seoUrl($_post->post_title));
+							?>
+							<figure style="background-image:url(<?=$_post->featured_image?>)"></figure>
 							<span class="section-content">
 								<div class="text-left">
-									<h4 class="title"><strong>Featured Article</strong></h4>
-									<label>Sweet roll chocolate bar pudding lollipop powder. Danish jujubes tootsie roll cotton candy. Wafer cake sweet roll liquorice pudding carrot cake.</label>
+									<a href="<?=$_custom_url?>"><h4 class="title"><strong><?=$_post->post_title?></strong></h4></a>
+									<label><?=$_postcontent?></label>
 								</div>
-								<button type="button" class="btn btn-warning btn-sm btn-custom yellow">READ MORE</button>
+								<a href="<?=$_custom_url?>"><button type="button" class="btn btn-warning btn-sm btn-custom yellow">READ MORE</button></a>
 							</span>
 						</div>
 						<div class="col-md-3 col-sm-6 margin-bottom-10">
-							<figure class="">
-								<img class="img-responsive" src="<?=CUSTOM_ASSETS?>images/demo/451x300/2-min.jpg" alt="" />
-							</figure>
+							<?php
+								$_curcategory = 'our-offshore-experts';
+								$_curlimit = 1;
+								$_posts =  do_shortcode( '[CGP_GENERATE_POSTS limit="'.$_curlimit.'" category="'.$_curcategory.'"]' );
+								$_posts = json_decode($_posts);
+								$_post = $_posts[0];
+								$_postcontent = substr(strip_tags(html_entity_decode($_post->post_excerpt)),0,150).'...';
+								$_custom_url = esc_url(home_url( '/' ).'featured-article/'.$_curcategory.'/'.$_post->ID.'/'.$CustomPageTemplate->seoUrl($_post->post_title));
+							?>
+							<figure style="background-image:url(<?=$_post->featured_image?>)"></figure>
 							<span class="section-content">
 								<div class="text-left">
-									<h4 class="title"><strong>Investment Questionnaires</strong></h4>
-									<label>Chocolate bar sugar plum wafer. Candy tootsie roll dragée apple pie pie dragée. Chocolate oat cake tart jelly beans apple pie gummies icing sesame snaps.</label>
+									<a href="<?=$_custom_url?>"><h4 class="title"><strong><?=$_post->post_title?></strong></h4></a>
+									<label><?=$_postcontent?></label>
 								</div>
-								<button type="button" class="btn btn-warning btn-sm btn-custom yellow">READ MORE</button>
+								<a href="<?=$_custom_url?>"><button type="button" class="btn btn-warning btn-sm btn-custom yellow">READ MORE</button></a>
 							</span>
 						</div>
 						<div class="col-md-3 col-sm-6 margin-bottom-10">
-							<figure class="">
-								<img class="img-responsive" src="<?=CUSTOM_ASSETS?>images/demo/451x300/3-min.jpg" alt="" />
-							</figure>
+							<?php
+								$_curcategory = 'starting-out';
+								$_curlimit = 1;
+								$_posts =  do_shortcode( '[CGP_GENERATE_POSTS limit="'.$_curlimit.'" category="'.$_curcategory.'"]' );
+								$_posts = json_decode($_posts);
+								$_post = $_posts[0];
+								$_postcontent = substr(strip_tags(html_entity_decode($_post->post_excerpt)),0,150).'...';
+								$_custom_url = esc_url(home_url( '/' ).'featured-article/'.$_curcategory.'/'.$_post->ID.'/'.$CustomPageTemplate->seoUrl($_post->post_title));
+							?>
+							<figure style="background-image:url(<?=$_post->featured_image?>)"></figure>
 							<span class="section-content">
 								<div class="text-left">
-									<h4 class="title"><strong>Demo Account</strong></h4>
-									<label>Gingerbread cake gummies cotton candy. Caramels fruitcake cotton candy danish gummi bears ice cream cookie carrot cake muffin. Caramels I love I love.</label>
+									<a href="<?=$_custom_url?>"><h4 class="title"><strong><?=$_post->post_title?></strong></h4></a>
+									<label><?=$_postcontent?></label>
 								</div>
-								<button type="button" class="btn btn-warning btn-sm btn-custom yellow">READ MORE</button>
+								<a href="<?=$_custom_url?>"><button type="button" class="btn btn-warning btn-sm btn-custom yellow">READ MORE</button></a>
 							</span>
 						</div>
 						<div class="col-md-3 col-sm-6 margin-bottom-10">

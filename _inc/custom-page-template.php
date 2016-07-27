@@ -3,6 +3,7 @@
   class CustomPageTemplate{
     public function __construct(){
       self::custom_template_init();
+      self::add_vc_shortcodes();
     }
 
     public function custom_template_init(){
@@ -15,6 +16,7 @@
       $vars[] = 'ft';
       $vars[] = 'fi';
       $vars[] = 'ctem';
+      $vars[] = 'ccat';
       return $vars;
     }
 
@@ -26,6 +28,8 @@
     public function rewrite(){
       $newrules = array();
 
+      $newrules['featured-article/(.*)'] = 'index.php?ctem=featured-article&ccat=$matches[1]';
+      $newrules['featured-article/(.*)/(.*)/(.*)'] = 'index.php?ctem=featured-article&ccat=$matches[1]&fi=$matches[2]&ft=$matches[3]';
       $newrules['community/media/e-books/(.*)/(.*)'] = 'index.php?ctem=e-books&fi=$matches[1]&ft=$matches[2]';
       $newrules['latest-news/(.*)/(.*)'] = 'index.php?ctem=latest-news&fi=$matches[1]&ft=$matches[2]';
       $newrules['latest-news'] = 'index.php';
@@ -65,6 +69,22 @@
             include_once($_access);
             die();
           break;
+          case 'featured-article':
+            $_feedcategory = get_query_var( 'ccat' );
+            $_fi = get_query_var('fi');
+            if(!empty($_feedcategory)){
+              if(!empty($_fi)){
+                $_access = get_stylesheet_directory() . '/_template/custom-'.$_feedtemplate.'.php';
+                include_once($_access);
+                die();
+              }else{
+                $_access = get_stylesheet_directory() . '/_template/custom-featured-articles.php';
+                var_dump($_access);
+                die();
+              }
+            }
+            die();
+          break;
           default:
             echo "Template not found";
             wp_die();
@@ -92,5 +112,43 @@
            }
        }
        return null;
+    }
+
+    public function add_vc_shortcodes(){
+      add_shortcode( 'vc_row', [$this,'add_vc_row'] );
+      add_shortcode( 'vc_column', [$this,'add_vc_column'] );
+      add_shortcode( 'vc_column_text', [$this,'add_vc_column_text'] );
+      add_shortcode( 'vc_separator', [$this,'add_vc_separator'] );
+      add_shortcode( 'lvca_team', [$this,'add_lvca_team'] );
+      add_shortcode( 'lvca_team_member', [$this,'add_lvca_team_member'] );
+    }
+    public function add_vc_row($params,$content = null){
+      return do_shortcode($content);
+    }
+    public function add_vc_column($params,$content = null){
+      return do_shortcode($content);
+    }
+    public function add_vc_separator($params,$content = null){
+      return do_shortcode('<hr>'.$content);
+    }
+    public function add_vc_column_text($params,$content = null){
+      return html_entity_decode(nl2br($content));
+    }
+    public function add_lvca_team($params,$content = null){
+      return do_shortcode('<div class="cont-member">'.$content.'</div>');
+    }
+    public function add_lvca_team_member($params,$content = null){
+      $new_params = [];
+      $cur_key = 0;
+      $param_index = ['member_name','member_image','member_position','member_details'];
+      foreach ($params as $key => $value) {
+        if(in_array($key, $param_index)){
+          $cur_key = $key;
+        }
+        $new_params[$cur_key] .= preg_replace("/[^a-zA-Z0-9<>@.]+/", "", html_entity_decode($value, ENT_QUOTES)).' ';
+      }
+      $new_params['member_name'] .= $new_params[0];
+      unset($new_params[0]);
+      return html_entity_decode('<img class="pull-left member-image" src="'.get_stylesheet_directory_uri().'/assets/'.trim($new_params['member_image'],' ').'.jpg" width="300" alt="" /><div class="member-name"><strong>'.strtoupper(trim($new_params['member_name'],'"')).'</strong></div><div class="member-position"><strong>'.$new_params['member_position'].'</strong></div><div class="member-details">'.$new_params['member_details'].'</div>');
     }
   }
