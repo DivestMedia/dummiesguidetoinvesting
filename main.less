@@ -65,7 +65,7 @@ body{
 	button.btn-custom{
 		&.yellow{
 			background-color: #ffd416;
-			color: #666666;
+			color: #333;
 			font-weight: 600;
 			border-color: #e8bd00;
 		    padding: 5px 20px;
@@ -221,7 +221,7 @@ body{
 			width: 30% !important;
 		}
 	}
-	div.cont-upcoming-ipo,div.cont-brokerage-firm{
+	div.cont-upcoming-ipo,div.cont-brokerage-firms{
 		a.image-hover{
 			    margin: 0 auto;
 		}
@@ -307,8 +307,32 @@ body{
 	}
 	.cont-article-content{		    
 		white-space: pre-wrap; 
+		display: inline-block;
 		ul{
 			margin-bottom: 0;
+			line-height: 8px;
+			li{
+				line-height: 20px;
+			}
+		}
+		.row:after,.row:before {
+		   content: none;
+		}
+		p{
+			margin-bottom: 5px;
+			line-height: normal;
+		}
+		&.cont-brokerage-firm{
+			div.col{
+				line-height: 5px;
+				margin-bottom: 5px;
+			}
+		}
+		
+		i.fa{
+			color: #000;
+    		font-size: 22px;
+    		margin-right: 5px;
 		}
 	}
 	#table-data tr td{
@@ -320,5 +344,71 @@ body{
 	}
 	#table-data tr td a{
 	    cursor:pointer;
+	}
+	section.sec-invest-or-divest{
+		background-color: #3b3b3b;
+		// .current-episode-details{
+		// 	height: auto;
+		// 	margin: 10px auto;
+		// 	padding:10px;
+		// 	background-color: #2b2b2b;
+		//     white-space: pre-wrap;
+		//     p{	
+		//     	&.less{
+		// 	    	height: 75px;
+		// 	    }
+		// 	    &.more{
+		// 	    	height: 100%;
+		// 	    }
+		//     	overflow: hidden;
+		//     	margin-bottom: 0;
+		//     }
+		//     .btn-show-more-details{
+		//     	padding-top: 5px;
+		//     	border-top: 1px solid #666;
+		//     	font-size: 11px;
+	 //    		color:#fff;
+	 //    		cursor: pointer;
+		//     }
+		// }
+		// .cont-more-episodes{
+		// 	background-color: #2b2b2b;
+		// 	padding-top: 10px; 
+		// 	display: inline-block;
+		// 	div:not(.cont-episode-details){
+		// 		padding: 0;
+		// 	}
+		// 	div.cont-episode-details{
+		// 		padding-right: 0;
+		// 	}
+		// 	label{
+		// 		display: inline-block;
+		// 		margin-bottom: 0;
+		// 		font-size: 11px;
+		// 	}
+		// 	.title{
+		// 	   	max-height: 40px;
+		// 	    display: block;
+		// 	    overflow: hidden;
+		// 	    line-height: normal;
+		// 	}
+		// 	hr{
+		// 	    margin: 15px 0;
+		// 	}
+		// }
+	}
+	section.sec-invest-or-divest-comments{
+		padding-top: 0;
+		.cont-main-comments{
+			.comments{
+				margin-top: 0;
+				span.yellow{
+					color: #ffd416!important;
+				}
+			}
+			button.btn-yellow{
+				background-color: #ffd416;
+			}
+		}
 	}
 }

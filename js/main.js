@@ -1,4 +1,18 @@
 jQuery(window).ready(function () {
+	jQuery.ajax({
+        dataType: "json",
+        url: "https://www.googleapis.com/youtube/v3/videos",
+        data: {
+            part: 'snippet',
+            id: 'Ro_0p-Jo8ls',
+            key: 'AIzaSyATs9R_IBTjzMUEM8xGAmRn5PAb3DUrPYs'
+        },
+        success: function(data) {
+            if (typeof data.items != "undefined" && data.items.length > 0) {
+                console.log(data.items[0].snippet.publishedAt);
+            }
+        }
+    });
 	var flag = 1;
 	$(window).scroll(function (event) {
 	    var scroll = $(window).scrollTop();
@@ -14,6 +28,14 @@ jQuery(window).ready(function () {
 	    }
 	});
 	
+	$('.current-episode-details').on('click','.btn-show-more-details',function(){
+		if(!$('.details-content').hasClass('more')){
+			$(this).text('SHOW LESS');
+		}else{
+			$(this).text('SHOW MORE');
+		}
+		$('.details-content').toggleClass('less more');
+	});
 
 	/** Isotope Blog
 	 *********************** **/

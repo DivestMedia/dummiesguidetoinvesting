@@ -1,15 +1,13 @@
 <?php
   get_header();
-  	$_curcategory = 'latest-news';
-	$_curlimit = 32;
-	if(!empty(get_option('cgp_server_base_url')))
-		$_cururl = get_option('cgp_server_base_url');
+  	$_curcategory = 'brokerage-firms';
+	$_curlimit = 50;
 	$_posts =  do_shortcode( '[CGP_GENERATE_POSTS limit="'.$_curlimit.'" category="'.$_curcategory.'"]' );
 	$_posts = json_decode($_posts);
 	$_post = $_posts[CustomPageTemplate::post_search($_feedid, $_posts)];
-	if(empty($_post)){
-		wp_redirect( home_url() ); exit;
-	}
+	// $_post->post_content = do_shortcode($_post->post_content,true);
+	// $_post->post_content = preg_replace("/\[[\/]?vc_[^\]]*\]/", '', $_post->post_content);
+	// $_post->post_content = preg_replace("/\[[\/]?lvca_[^\]]*\]/", '', $_post->post_content);
 ?>
 <!-- <section class="page-header dark page-header-xs">
 	<div class="container">
@@ -44,12 +42,12 @@
 					</li> -->
 				</ul>
 
-				<div class="thumbnail">
-					<img class="img-responsive" src="<?=$_post->featured_image?>" alt="" />
-				</div>
+				<!-- <div class="thumbnail"> -->
+					<img class="img-responsive pull-left" src="<?=$_post->featured_image?>" alt="" />
+				<!-- </div> -->
 
 				<!-- article content -->
-				<p class="dropcap"><p><?php echo html_entity_decode($_post->post_content)?></p></p>
+				<div class="cont-article-content cont-brokerage-firm"><?=do_shortcode($_post->post_content)?></div>
 							
 				<div class="divider divider-dotted"><!-- divider --></div>
 
@@ -137,11 +135,57 @@
 							<hr>
 
 							<!-- FEATURED VIDEO -->
+							<h3 class="hidden-xs size-16 margin-bottom-10">FEATURED VIDEO</h3>
+							<div class="hidden-xs embed-responsive embed-responsive-16by9 margin-bottom-30">
+								<iframe class="embed-responsive-item" src="http://player.vimeo.com/video/8408210" width="800" height="450"></iframe>
+							</div>
+
+							<hr>
 
 							<?php 
-							if(is_active_sidebar('sidebar-single'))
+								if(is_active_sidebar('sidebar-single'))
 									dynamic_sidebar('sidebar-single');
 							// include_once(get_stylesheet_directory().'/_template/latest-news-widget.php');?>
+
+							<!-- TAGS -->
+							<!-- <h3 class="hidden-xs size-16 margin-bottom-20">TAGS</h3>
+							<div class="hidden-xs margin-bottom-60">
+
+								<a class="tag" href="#">
+									<span class="txt">RESPONSIVE</span>
+									<span class="num">12</span>
+								</a>
+								<a class="tag" href="#">
+									<span class="txt">CSS</span>
+									<span class="num">3</span>
+								</a>
+								<a class="tag" href="#">
+									<span class="txt">HTML</span>
+									<span class="num">1</span>
+								</a>
+								<a class="tag" href="#">
+									<span class="txt">JAVASCRIPT</span>
+									<span class="num">28</span>
+								</a>
+								<a class="tag" href="#">
+									<span class="txt">DESIGN</span>
+									<span class="num">6</span>
+								</a>
+								<a class="tag" href="#">
+									<span class="txt">DEVELOPMENT</span>
+									<span class="num">3</span>
+								</a>
+
+							</div> -->
+
+							<!-- FACEBOOK -->
+							<!-- <iframe class="hidden-xs" src="//www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2Fstepofweb&amp;width=263&amp;height=258&amp;colorscheme=light&amp;show_faces=true&amp;header=false&amp;stream=false&amp;show_border=false" style="border:none; overflow:hidden; width:263px; height:258px;"></iframe>
+ -->
+
+							<!-- <hr> -->
+
+
+							
 
 						</div>
 		</div>

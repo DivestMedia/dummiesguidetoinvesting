@@ -7,7 +7,7 @@
     }
 
     public function custom_template_init(){
-      add_filter( 'rewrite_rules_array',[$this,'rewriteRules'] );
+      add_filter( 'rewrite_rules_array',[$this,'rewriteRules'] ,10);
       add_filter( 'template_include', [ $this, 'template_include' ],1,1 );
       add_filter( 'query_vars', [ $this, 'prefix_register_query_var' ] );
     }
@@ -17,6 +17,7 @@
       $vars[] = 'fi';
       $vars[] = 'ctem';
       $vars[] = 'ccat';
+      $vars[] = 'vti';
       return $vars;
     }
 
@@ -27,8 +28,10 @@
 
     public function rewrite(){
       $newrules = array();
+      // $newrules['invest-or-divest/'] = 'index.php?ctem=invest-or-divest&vti=$matches[1]';
       $newrules['featured-article/(.*)/(.*)/(.*)'] = 'index.php?ctem=featured-article&ccat=$matches[1]&fi=$matches[2]&ft=$matches[3]';
       $newrules['featured-article/(.*)'] = 'index.php?ctem=featured-article&ccat=$matches[1]';
+      $newrules['find-a-broker/list-of-brokerage-firms/(.*)/(.*)'] = 'index.php?ctem=brokerage-firm&fi=$matches[1]&ft=$matches[2]';
       $newrules['community/media/e-books/(.*)/(.*)'] = 'index.php?ctem=e-books&fi=$matches[1]&ft=$matches[2]';
       $newrules['latest-news/(.*)/(.*)'] = 'index.php?ctem=latest-news&fi=$matches[1]&ft=$matches[2]';
       $newrules['latest-news'] = 'index.php';
@@ -43,10 +46,12 @@
         }
       return $rules;
     }
+
     public function change_the_title() {
         $_cus_title = ucwords(get_query_var('tem'));
         return $_cus_title;
     }
+
     public function filter_title_part($title) {
         return array('a', 'b', 'c');
     }
@@ -84,6 +89,17 @@
             }
             die();
           break;
+          case 'brokerage-firm':
+            $_access = get_stylesheet_directory() . '/_template/custom-'.$_feedtemplate.'.php';
+            include_once($_access);
+            die();
+          break;
+          case 'invest-or-divest':
+            $_iod_title= get_query_var( 'vti' );
+            $_access = get_stylesheet_directory() . '/_template/custom-'.$_feedtemplate.'.php';
+            include_once($_access);
+            die();
+          break;
           default:
             echo "Template not found";
             wp_die();
@@ -92,6 +108,7 @@
       }
       return $template;
     }
+
     public function seoUrl($string) {
       //Lower case everything
       $string = strtolower($string);
@@ -115,27 +132,61 @@
 
     public function add_vc_shortcodes(){
       add_shortcode( 'vc_row', [$this,'add_vc_row'] );
+      add_shortcode( 'vc_row_inner', [$this,'add_vc_row_inner'] );
+      add_shortcode( 'vc_column_inner', [$this,'add_vc_column_inner'] );
       add_shortcode( 'vc_column', [$this,'add_vc_column'] );
+      add_shortcode( 'vc_single_image', [$this,'add_vc_single_image'] );
       add_shortcode( 'vc_column_text', [$this,'add_vc_column_text'] );
       add_shortcode( 'vc_separator', [$this,'add_vc_separator'] );
       add_shortcode( 'lvca_team', [$this,'add_lvca_team'] );
       add_shortcode( 'lvca_team_member', [$this,'add_lvca_team_member'] );
+      add_shortcode( 'icon', [$this,'add_vc_icon'] );
     }
+
     public function add_vc_row($params,$content = null){
       return do_shortcode($content);
     }
+
+    public function add_vc_row_inner($params,$content = null){
+      return do_shortcode($content);
+    }
+    
+    public function add_vc_column_inner($params,$content = null){
+      $_col = self::convert_fraction(preg_replace("/[\"]+/", "",html_entity_decode($params['width'], ENT_QUOTES)));
+      $_div_class = '';
+      if($_col==1)
+        $_div_class = 'col-md-12 col';
+      else if($_col==0.5)
+        $_div_class = 'col-md-6 col-sm-6 col';
+
+      return '<div class="'.$_div_class.'">'.do_shortcode($content).'</div>';
+    }
+
+    public function add_vc_icon($params,$content = null){
+      $_icon_name = preg_replace("/[\"]+/", "",html_entity_decode($params['name'], ENT_QUOTES));
+      return '<i class="fa '.$_icon_name.'"></i>'.do_shortcode($content);
+    }
+
     public function add_vc_column($params,$content = null){
       return do_shortcode($content);
     }
+
+    public function add_vc_single_image($params,$content = null){
+      return do_shortcode($content);
+    }
+
     public function add_vc_separator($params,$content = null){
       return do_shortcode('<hr>'.$content);
     }
+
     public function add_vc_column_text($params,$content = null){
-      return html_entity_decode($content);
+      return html_entity_decode(do_shortcode($content)) ;
     }
+
     public function add_lvca_team($params,$content = null){
       return do_shortcode('<div class="cont-member">'.$content.'</div>');
     }
+
     public function add_lvca_team_member($params,$content = null){
       $new_params = [];
       $cur_key = 0;
@@ -149,5 +200,13 @@
       $new_params['member_name'] .= $new_params[0];
       unset($new_params[0]);
       return html_entity_decode('<img class="pull-left member-image" src="'.get_stylesheet_directory_uri().'/assets/'.trim($new_params['member_image'],' ').'.jpg" width="300" alt="" /><div class="member-name"><strong>'.strtoupper(trim($new_params['member_name'],'"')).'</strong></div><div class="member-position"><strong>'.$new_params['member_position'].'</strong></div><div class="member-details">'.$new_params['member_details'].'</div>');
+    }
+
+    public function convert_fraction( $mathString )    {
+        $mathString = trim($mathString);
+        $mathString = str_replace ('[^0-9\+-\*\/\(\) ]', '', $mathString); 
+
+        $compute = create_function("", "return (" . $mathString . ");" );
+        return 0 + $compute();
     }
   }
