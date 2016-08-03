@@ -36,7 +36,24 @@
 						
 						<!-- BUTTONS -->
 						<ul class="pull-right nav nav-pills nav-second-main">
-							
+							<!-- SEARCH -->
+							<li class="search">
+								<a href="javascript:;">
+									<i class="fa fa-search"></i>
+								</a>
+								<div class="search-box" style="display: none;">
+									<form role="search" class="search-form" action="<?=get_site_url()?>" method="get">
+										<div class="input-group">
+											<input type="search" name="s" placeholder="Search" class="form-control">
+											<input type="hidden" name="post_type" value="iod_video" />
+											<span class="input-group-btn">
+												<button class="btn btn-custom yellow" type="submit">Search</button>
+											</span>
+										</div>
+									</form>
+								</div> 
+							</li>
+							<!-- /SEARCH -->
 							<!-- ACCOUNT -->
 							<li class="acount">
 								<a href="#">

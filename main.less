@@ -1,4 +1,22 @@
 body{
+	.pagination{
+		li{
+			span{
+				margin-right: 4px;
+			    border-radius: 3px !important;
+				&.current{
+					color: #333;
+				    background-color: #ffd416;
+				    border-color: #e8bd00;
+				    &:hover{
+				    	color: #333;
+				    	background-color: #dcb405;
+				    	border-color: #e8bd00;
+				    }
+				}
+			}
+		}
+	}
 	#header{
 		background-color: #000 !important;
 		
@@ -11,7 +29,7 @@ body{
     	padding-bottom: 0;
 
 		a.logo{
-			width: 70%;
+			width: 66%;
     		max-width: 330px;
     		max-height: 57px;
     		img{

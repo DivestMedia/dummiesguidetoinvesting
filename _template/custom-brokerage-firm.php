@@ -5,9 +5,6 @@
 	$_posts =  do_shortcode( '[CGP_GENERATE_POSTS limit="'.$_curlimit.'" category="'.$_curcategory.'"]' );
 	$_posts = json_decode($_posts);
 	$_post = $_posts[CustomPageTemplate::post_search($_feedid, $_posts)];
-	// $_post->post_content = do_shortcode($_post->post_content,true);
-	// $_post->post_content = preg_replace("/\[[\/]?vc_[^\]]*\]/", '', $_post->post_content);
-	// $_post->post_content = preg_replace("/\[[\/]?lvca_[^\]]*\]/", '', $_post->post_content);
 ?>
 <!-- <section class="page-header dark page-header-xs">
 	<div class="container">
@@ -42,9 +39,11 @@
 					</li> -->
 				</ul>
 
-				<!-- <div class="thumbnail"> -->
-					<img class="img-responsive pull-left" src="<?=$_post->featured_image?>" alt="" />
-				<!-- </div> -->
+				<div class="text-center">
+				<figure class="box-shadow-2 margin-bottom-20 width-300" style="margin: 0 auto;">
+					<img class="img-responsive" src="<?=$_post->featured_image?>" alt="<?=$_post->post_title?>" />
+				</figure>
+				</div>
 
 				<!-- article content -->
 				<div class="cont-article-content cont-brokerage-firm"><?=do_shortcode($_post->post_content)?></div>

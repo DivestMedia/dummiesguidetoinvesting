@@ -15,13 +15,6 @@
  * @subpackage Twenty_Fifteen
  * @since Twenty Fifteen 1.0
  */
-$obj = get_queried_object();
-if(!strcasecmp($obj->query_var, 'iod_video')&&!is_single()){
-	// var_dump('hello');
-	include_once('page-invest-or-divest.php');
-	die();
-}
-
 
 get_header(); ?>
 

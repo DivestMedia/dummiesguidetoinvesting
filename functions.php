@@ -166,4 +166,49 @@ class custom_xyren_smarty_walker_nav_menu extends Walker_Nav_Menu {
 
 $CustomPageTemplate = New CustomPageTemplate();
 
+function iod_video_posts_per_page( $query ) {
+     if (!is_admin() && is_archive('iod_video') )
+        $query->set( 'posts_per_page', 1 );
+ }
+ 
+add_filter('parse_query', 'iod_video_posts_per_page');
+
+function posts_pagination() {
+    global $wp_query,$query_string;
+    $big = 999999999;
+    $pages = paginate_links(array(
+        'base' => str_replace($big, '%#%', get_pagenum_link($big)),
+        'format' => '?page=%#%',
+        'current' => max(1, get_query_var('paged')),
+        'total' => $wp_query->max_num_pages,
+        'type' => 'array',
+        'prev_next' => TRUE,
+        'prev_text' => '&larr; Prev',
+        'next_text' => 'Next &rarr;',
+    ));
+    if (is_array($pages)) {
+        $current_page = ( get_query_var('paged') == 0 ) ? 1 : get_query_var('paged');
+        echo '<ul class="pagination">';
+        foreach ($pages as $i => $page) {
+            if ($current_page == 1 && $i == 0) {
+                echo "<li class='active'>$page</li>";
+            } else {
+                if ($current_page != 1 && $current_page == $i) {
+                    echo "<li class='active'>$page</li>";
+                } else {
+                    echo "<li>$page</li>";
+                }
+            }
+        }
+        echo '</ul>';
+    }
+}
+
+function dummiesguidetoinvesting_search_url_redirect() {
+    if ( is_search() && !empty( $_GET['s'] && $_GET['post_type']=='iod_video') ) {
+        wp_redirect( home_url( "/search/" . urlencode( get_query_var( 's' ) ) .'/') );
+        exit;
+    }
+}
+add_action( 'template_redirect', 'dummiesguidetoinvesting_search_url_redirect' );
 
