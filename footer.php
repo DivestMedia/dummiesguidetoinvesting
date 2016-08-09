@@ -1,4 +1,4 @@
-		<!-- FOOTER -->
+	<!-- FOOTER -->
 			<footer id="footer">
 				<div class="full-container">
 					<div class="row cont-sub-footer">
@@ -51,16 +51,15 @@
 							<div class="col-md-12">
 								<div class="lbl-copyright">
 									<div class="pull-left footer-nav col-md-7 col-sm-12">
-										<a href="#" title="">HOME</a> |
-										<a href="#" title="">ABOUT US</a> |
-										<a href="#" title="">MANUAL</a> |
-										<a href="#" title="">INVESTOR ASSESSMENT</a> |
-										<a href="#" title="">DEMO ACCOUNT</a> |
-										<a href="#" title="">FIND A BROKER</a> |
-										<a href="#" title="">NEWS</a> |
-										<a href="#" title="">INVEST OR DIVEST</a> |
-										<a href="#" title="">COMMUNITY</a> |
-										<a href="#" title="">ASK AN EXPERT</a>
+									<?php
+										if(!empty(wp_get_nav_menu_items('Footer Menu'))){
+											$footer_menu = [];
+											foreach (wp_get_nav_menu_items('Footer Menu') as $f) {
+												array_push($footer_menu , '<a href="'.$f->url.'">'.strtoupper($f->title).'</a>');
+											}
+										}
+										print_r(implode(' | ', $footer_menu));
+									?>
 									</div>
 									<div class="col-md-5 col-sm-12">
 										<label class="pull-right">DummiesGuidetoInvesting.com - a Divest Media Publication | All Rights Reserved © 2016</label>
@@ -71,9 +70,9 @@
 							<div class="col-md-12  margin-top-20">
 								<div class="text-center lbl-disclaimer">
 									<label>DISCLAIMER</label>
-		Dummies Guide to Investingis a financial publisher that does not offer any personal financial advice, or advocate the purchase or sale of any security or investment for any specific individual. Members should be aware that investment 
+		Dummies Guide to Investing is a financial publisher that does not offer any personal financial advice, or advocate the purchase or sale of any security or investment for any specific individual. Members should be aware that investment 
 		markets have inherent risks, and past performance does not assure future results. In accordance with FTC guidelines, Investor Junkie has financial relationships with some of the products and services mentioned on this web site, 
-		and IMarket Master Class may be compensated if consumers choose to click these links in our content and ultimately sign up for them. For more information please visit our disclaimer web page.
+		and Market MasterClass may be compensated if consumers choose to click these links in our content and ultimately sign up for them. For more information please visit our disclaimer web page.
 								</div>
 							</div>
 						</div>
@@ -85,11 +84,11 @@
 		<!-- /wrapper -->
 
 		<!-- PRELOADER -->
-		<!-- <div id="preloader">
+		<div id="preloader">
 			<div class="inner">
 				<span class="loader"></span>
 			</div>
-		</div> -->
+		</div>
 		<!-- /PRELOADER -->
 
 
