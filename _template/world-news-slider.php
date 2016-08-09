@@ -49,8 +49,8 @@
 					<a href="<?=$_custom_url?>">
 						<img class="img-responsive" src="<?=$p->featured_image?>" alt="<?=$p->post_title?>"  style="height:149px;">
 					</a>
-					<h4 class="text-left margin-top-20"><a href="<?=$_custom_url?>"><?=$p->post_title?></a></h4>
-					<p class="text-left"><?=$_postcontent?></p>
+					<h4 class="text-left margin-top-20" style="line-height: normal;"><a href="<?=$_custom_url?>"><?=$p->post_title?></a></h4>
+					<!-- <p class="text-left"><?=$_postcontent?></p> -->
 				</div>
      			<?php
      		}
