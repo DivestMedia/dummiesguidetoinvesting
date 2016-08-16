@@ -1,4 +1,15 @@
 jQuery(window).ready(function () {
+
+	$('.btn-team-show-more').click(function(){
+		if($(this).text()=='show more'){
+			$(this).text('show less');
+			$(this).siblings('.cont-description').addClass('show-more').removeClass('show-less');
+		}else{
+			$(this).text('show more');
+			$(this).siblings('.cont-description').addClass('show-less').removeClass('show-more');
+		}
+	});
+
 	jQuery.ajax({
         dataType: "json",
         url: "https://www.googleapis.com/youtube/v3/videos",

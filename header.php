@@ -19,7 +19,7 @@
 	</head>
 
 	
-	<body class="smoothscroll enable-animation">
+	<body class="smoothscroll enable-animation <?=(is_admin_bar_showing()?'has-admin-bar':'')?>">
 		<!-- wrapper -->
 		<div id="wrapper" >
 			<!-- Top Bar -->
@@ -55,10 +55,20 @@
 							</li>
 							<!-- /SEARCH -->
 							<!-- ACCOUNT -->
-							<li class="acount">
-								<a href="#">
+							<li class="acount" style="height: 40px;">
+								<a class="dropdown-toggle" href="<?=is_user_logged_in()?home_url('/accounts'):home_url('/accounts/login')?>">
 									<i class="glyphicon glyphicon-user"></i> 
 								</a>
+								<?php if(is_user_logged_in()){?>
+								<ul class="dd-account dropdown-menu pull-right">
+									<li><a href="<?=wp_logout_url()?>">LOGOUT</a></li>
+								</ul>
+								<?php }else{?>
+								<ul class="dd-account dropdown-menu pull-right">
+									<li><a href="<?=home_url('/accounts/login')?>">LOGIN</a></li>
+									<li><a href="<?=home_url('/accounts/register')?>">REGISTER</a></li>
+								</ul>
+								<?php }?>
 							</li>
 							<!-- /ACCOUNT -->
 
@@ -68,7 +78,7 @@
 						
 						<!-- Logo -->
 						<a class="logo pull-left" href="<?php bloginfo('home'); ?>" title="<? bloginfo();?>">
-							<img src="<?=CUSTOM_ASSETS?>dummies-to-investing.png" alt="" class="custom-logo">
+							<img src="<?=CUSTOM_ASSETS?>dummies-guide-logo-2.png" alt="" class="custom-logo">
 						</a>
 						<!-- 
 							Top Nav 
@@ -81,7 +91,7 @@
 								<?php
 
 								$_menu = wp_nav_menu(array(
-									'menu' => 'main',
+									'menu' => 'Main menu',
 									'walker' => new custom_xyren_smarty_walker_nav_menu(), 
 									'menu_id'=>'topMain',
 									'container' =>'ul',
@@ -101,6 +111,6 @@
 			<div class="cont-askanexpert">
 				<a class="askanexpert-avatar" href="#" title="Ask an Expert"><img class="img-responsive" src="<?=CUSTOM_ASSETS?>askanexpert_avatar.png" alt=""></a> 
 				<div class="askanexpert-message"><img class="img-responsive" src="<?=CUSTOM_ASSETS?>askanexpert-message.png" alt=""></div>
-				<button class="btn btn-warning btn-block btn-custom yellow btn-askanexpert"> ASK AN EXPERT</button>
+				<a href="<?=home_url('/ask-an-expert')?>"><button class="btn btn-warning btn-block btn-custom yellow btn-askanexpert"> ASK AN EXPERT</button></a>
 			</div>
 			<? 

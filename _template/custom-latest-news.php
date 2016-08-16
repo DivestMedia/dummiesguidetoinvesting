@@ -10,6 +10,8 @@
 	if(empty($_post)){
 		wp_redirect( home_url() ); exit;
 	}
+	$ending = '...<br><br>To continue reading this article, visit <a href="'.$_post->guid.'">'.$_post->guid.'</a>';
+	$_post->post_content = truncate(html_entity_decode($_post->post_content),floor(strlen(html_entity_decode($_post->post_content))/2),array('html' => true, 'ending' => $ending));
 ?>
 <!-- <section class="page-header dark page-header-xs">
 	<div class="container">

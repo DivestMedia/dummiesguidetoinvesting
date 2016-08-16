@@ -4,16 +4,17 @@
 					<div class="row cont-sub-footer">
 						<div class="col-md-4 margin-bottom-10">
 							<!-- Footer Logo -->
-							<img src="<?=CUSTOM_ASSETS?>dummies-to-investing.png" alt="" class="custom-logo">
-
-							<!-- Small Description -->
-							<p class="margin-top-10">Soufflé soufflé caramels ice cream powder jelly-o chocolate cake jelly-o. Donut jelly-o apple pie pie halvah fruitcake. Toffee cake chupa chups chupa chups lollipop soufflé powder muffin gummies.</p>
+							<a href="<?=home_url('/')?>"><img src="<?=CUSTOM_ASSETS?>dummies-to-investing.png" alt="" class="custom-logo"></a>
+							<?php 
+							if(is_active_sidebar('footer-about-us-min'))
+								dynamic_sidebar('footer-about-us-min');
+							?>
 						</div>
 						<div class="col-md-4 text-center margin-bottom-10">
 							<label class="lbl-custom white">SPECIAL OFFER</label>
 							<label class="lbl-custom yellow">FREE PREMIUM SUBSCRIPTION</label>
 							<div class="margin-top-20">
-								<button type="button" class="btn btn-warning btn-sm btn-custom yellow">SUBSCRIBE NOW</button>
+								<a href="<?=home_url('/subscribe')?>" title="Subcribe now"><button type="button" class="btn btn-warning btn-sm btn-custom yellow">SUBSCRIBE NOW</button></a>
 							</div>
 						</div>
 						<div class="col-md-4 text-center margin-bottom-10">
@@ -69,7 +70,6 @@
 							<br>
 							<div class="col-md-12  margin-top-20">
 								<div class="text-center lbl-disclaimer">
-									<label>DISCLAIMER</label>
 		Dummies Guide to Investing is a financial publisher that does not offer any personal financial advice, or advocate the purchase or sale of any security or investment for any specific individual. Members should be aware that investment 
 		markets have inherent risks, and past performance does not assure future results. In accordance with FTC guidelines, Investor Junkie has financial relationships with some of the products and services mentioned on this web site, 
 		and Market MasterClass may be compensated if consumers choose to click these links in our content and ultimately sign up for them. For more information please visit our disclaimer web page.

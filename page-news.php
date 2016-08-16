@@ -22,7 +22,7 @@
 	<section id="features" class="section-news">
 		<div class="container">
 			<header class="text-center margin-bottom-30">
-				<h2 class="section-title">News</h2>
+				<h2 class="section-title">Global News</h2>
 			</header>
 			<!-- FEATURED BOXES 3 -->
 			<div class="row">
@@ -83,14 +83,12 @@
 			         			$_custom_url = esc_url(home_url( '/' ).'latest-news/'.$p->ID.'/'.$CustomPageTemplate->seoUrl($p->post_title));
 			         			
 			         			?>
-			         			<div class="portfolio-item <?=$_pslug?>">
-									<figure class="">
-										<img class="img-responsive" src="<?=$p->featured_image?>" alt="" />
-									</figure>
+			         			<div class="portfolio-item cont-global-news <?=$_pslug?>">
+									<figure style="background-image:url(<?=$p->featured_image?>)"></figure>
 									<span class="section-content">
 										<div class="text-left">
-											<a href="<?=$_custom_url?>"><h4 class="title"><strong><?=$p->post_title?></strong></h4></a>
-											<label><?=$_postcontent?></label>
+											<a href="<?=$_custom_url?>" title="<?=$p->post_title?>"><h4 class="title"><strong><?=mb_strimwidth(strip_tags($p->post_title), 0, 37, '...');?></strong></h4></a>
+											<label><?=mb_strimwidth(strip_tags(html_entity_decode($p->post_content)), 0, 135, '...');?></label>
 										</div>
 										<a href="<?=$_custom_url?>"><button type="button" class="btn btn-warning btn-sm btn-custom yellow">READ MORE</button></a>
 									</span>

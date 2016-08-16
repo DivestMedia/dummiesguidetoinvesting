@@ -32,7 +32,7 @@ get_header();
 										<span class="section-content">
 											<div class="text-left">
 												<a href="<?=$_custom_url?>"><h4 class="title"><strong><?=$p->post_title?></strong></h4></a>
-												<label><?=$p->post_excerpt?></label>
+												<label><?=mb_strimwidth(strip_tags($p->post_excerpt), 0, 245, '...');?></label>
 											</div>
 											<a href="<?=$_custom_url?>"><button type="button" class="btn btn-warning btn-sm btn-custom yellow">READ MORE</button></a>
 										</span>

@@ -73,14 +73,27 @@ function backstage_smarty_widgets_init() {
         'name' => __( 'Main Sidebar', XYR_SMARTY),
         'id' => 'sidebar-single',
         'description' => __( 'Widgets in this area will be shown on all posts and pages.', XYR_SMARTY ),
-        'before_widget' => '<div id="%1$s" class="row widget %2$s"><div class="col-sm-12 col-md-6 col-lg-12">',
+        'before_widget' => '<div id="%1$s" class="row widget %2$s"><div class="col-sm-12 col-md-12 col-lg-12">',
 		'after_widget'  => '</div></div>',
 		'before_title'  => '',
 		'after_title'   => '',
 	));
 }
 
-
+// WIDGET FOR FOOTER TEXT START
+add_action( 'widgets_init', 'footer_text_widgets_init' );
+function footer_text_widgets_init() {
+    register_sidebar( array(
+        'name' => __( 'Footer About Website', XYR_SMARTY),
+        'id' => 'footer-about-us-min',
+        'description' => __( 'This widget area is for footer text only.', XYR_SMARTY ),
+        'before_widget' => '<div id="%1$s" class="widget %2$s margin-top-10">',
+        'after_widget'  => '</div>',
+        'before_title'  => '',
+        'after_title'   => '',
+    ));
+}
+// WIDGET FOR FOOTER TEXT END
 
 
 
@@ -211,4 +224,3 @@ function dummiesguidetoinvesting_search_url_redirect() {
     }
 }
 add_action( 'template_redirect', 'dummiesguidetoinvesting_search_url_redirect' );
-

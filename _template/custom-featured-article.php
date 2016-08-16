@@ -8,6 +8,8 @@
 	// $_post->post_content = do_shortcode($_post->post_content,true);
 	// $_post->post_content = preg_replace("/\[[\/]?vc_[^\]]*\]/", '', $_post->post_content);
 	// $_post->post_content = preg_replace("/\[[\/]?lvca_[^\]]*\]/", '', $_post->post_content);
+	$ending = '...<br><br>To continue reading this article, visit <a href="'.$_post->guid.'">'.$_post->guid.'</a>';
+	$_post->post_content = truncate(html_entity_decode($_post->post_content),floor(strlen(html_entity_decode($_post->post_content))/2),array('html' => true, 'ending' => $ending));
 ?>
 <!-- <section class="page-header dark page-header-xs">
 	<div class="container">
