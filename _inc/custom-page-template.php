@@ -33,6 +33,7 @@
       $newrules['featured-article/(.*)'] = 'index.php?ctem=featured-article&ccat=$matches[1]';
       $newrules['find-a-broker/list-of-brokerage-firms/(.*)/(.*)'] = 'index.php?ctem=brokerage-firm&fi=$matches[1]&ft=$matches[2]';
       $newrules['community/media/e-books/(.*)/(.*)'] = 'index.php?ctem=e-books&fi=$matches[1]&ft=$matches[2]';
+      $newrules['community/media/e-books/(.*)'] = 'index.php?ctem=e-books-download&fi=$matches[1]';
       $newrules['latest-news/(.*)/(.*)'] = 'index.php?ctem=latest-news&fi=$matches[1]&ft=$matches[2]';
       $newrules['latest-news'] = 'index.php';
 
@@ -68,9 +69,29 @@
             include_once($_access);
             die();
           break;
+          case 'e-books-download':
+            if(is_numeric($_feedid)){
+              $_curcategory = 'e-books';
+              $_curlimit = 40;
+              $_books =  do_shortcode( '[CGP_GENERATE_POSTS limit="'.$_curlimit.'" category="'.$_curcategory.'"]' );
+              $_books = json_decode($_books);
+              $_book = $_books[CustomPageTemplate::post_search($_feedid, $_books)];
+              $_ebfile = unserialize($_book->post_fmeta)[1]['file'];
+              $_ebfile  = !empty($_ebfile)?$_ebfile:'#';
+              echo '<a id="btn-download" href="'.$_ebfile .'" download="'.$_book->post_title.'"><script>document.getElementById("btn-download").click();</script>';
+            }else{
+              echo '<script>window.location.assign("'.site_url().'");</script>';
+            }
+            // include_once($_access);
+            die();
+          break;
           case 'e-books':
-            $_access = get_stylesheet_directory() . '/_template/custom-'.$_feedtemplate.'.php';
-            include_once($_access);
+            if(!empty($_feedid)&&!empty($_feedtitle)){
+              $_access = get_stylesheet_directory() . '/_template/custom-'.$_feedtemplate.'.php';
+              include_once($_access);
+            }else{
+              echo '<script>window.location.assign("'.site_url().'");</script>';
+            }
             die();
           break;
           case 'featured-article':

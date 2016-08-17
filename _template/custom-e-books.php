@@ -2,13 +2,12 @@
   get_header();
   	$_curcategory = 'e-books';
 	$_curlimit = 40;
-	if(!empty(get_option('cgp_server_base_url')))
-		$_cururl = get_option('cgp_server_base_url');
 	$_books =  do_shortcode( '[CGP_GENERATE_POSTS limit="'.$_curlimit.'" category="'.$_curcategory.'"]' );
 	$_books = json_decode($_books);
 	$_book = $_books[CustomPageTemplate::post_search($_feedid, $_books)];
-	$_ebfile = unserialize($_book->post_fmeta)[1]['file'];
-	$_ebfile  = !empty($_ebfile)?$_ebfile:'#';
+	// $_ebfile = unserialize($_book->post_fmeta)[1]['file'];
+	// $_ebfile  = !empty($_ebfile)?$_ebfile:'#';
+	$_ebfile  = site_url().'/community/media/e-books/'.$_feedid;
 ?>
 <!-- <section class="page-header dark page-header-xs">
 	<div class="container">
@@ -45,7 +44,7 @@
 				<div class="cont-e-book-details">
 					<img class="pull-left img-responsive" src="<?=$_book->featured_image?>" alt="" />
 					<p><?php echo html_entity_decode($_book->post_content)?></p>
-					<a href="<?=$_ebfile?>" download><button type="button" class="btn btn-warning btn-custom yellow"><i class="fa fa-download fa-fw"></i>Download</button></a>
+					<a href="<?=$_ebfile?>" target="_blank"><button type="button" class="btn btn-warning btn-custom yellow"><i class="fa fa-download fa-fw"></i>Download</button></a>
 				</div>		
 
 				<div class="divider divider-dotted"><!-- divider --></div>
