@@ -5,7 +5,7 @@
 						<div class="col-md-4 margin-bottom-10">
 							<!-- Footer Logo -->
 							<a href="<?=home_url('/')?>"><img src="<?=CUSTOM_ASSETS?>dummies-to-investing.png" alt="" class="custom-logo"></a>
-							<?php 
+							<?php
 							if(is_active_sidebar('footer-about-us-min'))
 								dynamic_sidebar('footer-about-us-min');
 							?>
@@ -70,8 +70,8 @@
 							<br>
 							<div class="col-md-12  margin-top-20">
 								<div class="text-center lbl-disclaimer">
-		Dummies Guide to Investing is a financial publisher that does not offer any personal financial advice, or advocate the purchase or sale of any security or investment for any specific individual. Members should be aware that investment 
-		markets have inherent risks, and past performance does not assure future results. In accordance with FTC guidelines, Investor Junkie has financial relationships with some of the products and services mentioned on this web site, 
+		Dummies Guide to Investing is a financial publisher that does not offer any personal financial advice, or advocate the purchase or sale of any security or investment for any specific individual. Members should be aware that investment
+		markets have inherent risks, and past performance does not assure future results. In accordance with FTC guidelines, Investor Junkie has financial relationships with some of the products and services mentioned on this web site,
 		and Market MasterClass may be compensated if consumers choose to click these links in our content and ultimately sign up for them. For more information please visit our disclaimer web page.
 								</div>
 							</div>
@@ -84,11 +84,11 @@
 		<!-- /wrapper -->
 
 		<!-- PRELOADER -->
-		<div id="preloader">
+		<!-- <div id="preloader">
 			<div class="inner">
 				<span class="loader"></span>
 			</div>
-		</div>
+		</div> -->
 		<!-- /PRELOADER -->
 
 
@@ -98,7 +98,7 @@
 		wp_footer();
 		global $_footers;
 		echo $_footers;
-		?>	
+		?>
 		<script type='text/javascript' src='<?=get_stylesheet_directory_uri();?>/js/main.js'></script>
 	</body>
 </html>

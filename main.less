@@ -662,6 +662,7 @@ section{
 				display: block;
 				border-bottom: 5px solid #f2cd00;
 				margin-top: 0;
+				background-image: none;
 			}
 
 
@@ -699,13 +700,13 @@ section{
 }
 
 
-			.btn-viewmore{
-				margin-left: 10px;
-				margin-top: 15px;
-				margin-bottom: 20px;
-				padding: 15px 50px;
-				background: #f2cd00;
-			}
+.btn-viewmore{
+	margin-left: 10px;
+	margin-top: 15px;
+	margin-bottom: 20px;
+	padding: 15px 50px;
+	background: #f2cd00;
+}
 
 section#most-viewed{
 	h4{
@@ -717,6 +718,8 @@ section#most-viewed{
 		display: block;
 		border-bottom: 5px solid #f2cd00;
 		margin: 0;
+		box-shadow: none;
+		background-image: none;
 	}
 
 	.owl-carousel{
@@ -730,6 +733,41 @@ section#most-viewed{
 				background-repeat: no-repeat;
 				height: 200px;
 				background-position: center;
+			}
+		}
+	}
+}
+
+section#popular-channels{
+	h4{
+		margin-bottom: 0;
+		text-transform: uppercase;
+		text-align: center;
+	}
+	hr{
+		max-width: 100px!important;
+		display: block;
+		border-bottom: 5px solid #f2cd00;
+		box-shadow: none;
+		background-image: none;
+		margin-top: 0;
+	}
+
+	.owl-carousel{
+		.item-hover{
+			opacity: 1!important;
+			border: 0px solid #f2cd00;	
+			.overlay{
+				opacity: 0.5;
+			}
+			h4{
+				color: #fff!important;
+			}
+			&:hover{
+				border: 40px solid #f2cd00;
+				.overlay{
+					opacity: 1;
+				}
 			}
 		}
 	}
