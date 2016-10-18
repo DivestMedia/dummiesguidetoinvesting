@@ -756,7 +756,7 @@ section#popular-channels{
 	.owl-carousel{
 		.item-hover{
 			opacity: 1!important;
-			border: 0px solid #f2cd00;	
+			border: 0px solid #f2cd00;
 			.overlay{
 				opacity: 0.5;
 			}
@@ -772,3 +772,88 @@ section#popular-channels{
 		}
 	}
 }
+.primary-bg{background-color:#f2cd00!important}
+.secondary-bg{background-color:#000!important}
+
+.featured-grid{
+
+	h4{
+		margin-bottom: 0;
+		text-transform: uppercase;
+		text-align: center;
+	}
+	hr{
+		max-width: 100px!important;
+		display: block;
+		border-bottom: 5px solid #f2cd00;
+		box-shadow: none;
+		background-image: none;
+		margin-top: 0;
+	}
+	.item-box-big{
+		figure{
+			border: 5px solid #f2cd00;
+		}
+		img{
+			// min-height: 390px;
+		}
+	}
+	.item-box{
+		.item-description{
+			h3{
+				padding-left: 10px;
+				padding-right: 10px;
+				em{
+					a{
+						color: #fff!important;
+					}
+				}
+			}
+		}
+		&:not(.item-box-big){
+			img{
+				height: 190px;
+			}
+		}
+
+		.inner{
+			a{
+				color: #fff!important;
+			}
+		}
+	}
+	&.video-grid{
+		.heading-title{
+			a{
+				h4,span{
+					color: #f2cd00!important;
+				}
+				&:hover{
+					h4,span{
+						color: #0087dd!important;
+					}
+				}
+			}
+		}
+	}
+}
+
+.item-box{position:relative;}
+.item-box .item-description .overlay{z-index:9!important;}
+.item-box .item-description .inner{z-index:10!important;color:#fff;}
+.item-box .item-hover:hover .overlay{z-index:3!important;}
+.item-box .item-description .overlay{z-index:0;}
+.item-box .item-description .overlay,.item-box .item-description .inner{top:auto;width:200px;margin:15px;height:180px;bottom:0!important;}
+.item-box.hover-box .item-description .overlay,.item-box.hover-box .item-description .inner{
+	width:100%;margin:0!important;height:100%;background-color:rgba(26,176,93,0)!important;}
+	.item-box.hover-box .item-description .overlay{background-color:rgba(0,0,0,0.5)!important;}
+	.item-box.hover-box .item-description:hover .inner{background-color:rgba(242, 205, 0, 0.76) !important;}
+	.item-box.hover-box .item-description:hover .inner .btn{background-color:#000!important;}
+
+
+	.item-box .item-description .inner h3{text-transform:uppercase;margin-top: 2em;margin-bottom:1em;color:#fff;font-size:1.2em;font-weight:bold;}
+	.item-box .item-description .inner h3 em{font-style:normal;display:block;font-size:0.8em;}
+
+	.size-10{font-size:10px;}
+	.size-11{font-size:11px;}
+	.pos-bottom{position:absolute;bottom:0;width:100%;}
