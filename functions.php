@@ -53,8 +53,8 @@ function backstage_smarty_setup() {
 	register_nav_menus( array(
 		'footer_ext'  => __( 'Footer Ext', XYR_SMARTY),
 	) );
-	
-	
+
+
 	add_image_size( 'main-image', 600, 400, true ); // Hard Crop Mode
 	add_image_size( 'mid-image', 450, 300, true ); // Hard Crop Mode
 	add_image_size( 'thumb-image', 150, 99, true ); // Hard Crop Mode
@@ -110,23 +110,23 @@ define('CUSTOM_ASSETS', get_stylesheet_directory_uri().'/assets/');
 
 
 class custom_xyren_smarty_walker_nav_menu extends Walker_Nav_Menu {
-  
+
     function start_lvl( &$output, $depth = 0, $args = array() ) {
         $indent = str_repeat("\t", $depth);
-        $output .= "\n$indent<ul class=\"dropdown-menu\">\n";                       
+        $output .= "\n$indent<ul class=\"dropdown-menu\">\n";
     }
      function end_lvl( &$output, $depth = 0, $args = array() ) {
         $indent = str_repeat("\t", $depth);
         $output .= "$indent</ul>\n";
     }
-  
-  
-      
+
+
+
     // add main/sub classes to li's and links
-     function start_el( &$output, $item, $depth, $args ) {
+     function start_el( &$output, $item, $depth = 0 , $args = array() , $id = 0) {
         global $wp_query;
         $indent = ( $depth > 0 ? str_repeat( "\t", $depth ) : '' ); // code indent
-      
+
         // depth dependent classes
         $depth_classes = array(
             ( $depth == 0 ? 'main-menu-item' : 'sub-menu-item' ),
@@ -135,24 +135,24 @@ class custom_xyren_smarty_walker_nav_menu extends Walker_Nav_Menu {
             'menu-item-depth-' . $depth
         );
         $depth_class_names = esc_attr( implode( ' ', $depth_classes ) );
-        
-        
-        
-            
+
+
+
+
         $active = $item->current ? ' active' : '';
-      
+
         // passed classes
         $classes = empty( $item->classes ) ? array() : (array) $item->classes;
         $class_names = esc_attr( implode( ' ', apply_filters( 'nav_menu_css_class', array_filter( $classes ), $item ) ) );
-      
+
         // build html
         $output .= $indent . '<li id="nav-menu-item-'. $item->ID . '" class="' . $depth_class_names . ' ' . $class_names . ' '. $active .'">';
-      
+
         // link attributes
         $attributes  = ! empty( $item->attr_title ) ? ' title="'  . esc_attr( $item->attr_title ) .'"' : '';
         $attributes .= ! empty( $item->target )     ? ' target="' . esc_attr( $item->target     ) .'"' : '';
         $attributes .= ! empty( $item->xfn )        ? ' rel="'    . esc_attr( $item->xfn        ) .'"' : '';
-        
+
         $children = get_posts(array('post_type' => 'nav_menu_item', 'nopaging' => true, 'numberposts' => 1, 'meta_key' => '_menu_item_menu_item_parent', 'meta_value' => $item->ID));
         if( !empty($children )){
             $attributes .= ' class="dropdown-toggle"';
@@ -161,8 +161,8 @@ class custom_xyren_smarty_walker_nav_menu extends Walker_Nav_Menu {
             $attributes .= ! empty( $item->url )        ? ' href="'   . esc_attr( $item->url        ) .'"' : '';
             $attributes .= ' class="menu-link ' . ( $depth > 0 ? 'sub-menu-link' : 'main-menu-link' ) . '"';
         }
-        
-      
+
+
         $item_output = sprintf( '%1$s<a%2$s>%3$s%4$s%5$s</a>%6$s',
             $args->before,
             $attributes,
@@ -171,7 +171,7 @@ class custom_xyren_smarty_walker_nav_menu extends Walker_Nav_Menu {
             $args->link_after,
             $args->after
         );
-      
+
         // build html
         $output .= apply_filters( 'walker_nav_menu_start_el', $item_output, $item, $depth, $args );
     }
@@ -183,7 +183,7 @@ function iod_video_posts_per_page( $query ) {
      if (!is_admin() && is_archive('iod_video') )
         $query->set( 'posts_per_page', 1 );
  }
- 
+
 add_filter('parse_query', 'iod_video_posts_per_page');
 
 function posts_pagination() {
@@ -224,3 +224,40 @@ function dummiesguidetoinvesting_search_url_redirect() {
     }
 }
 add_action( 'template_redirect', 'dummiesguidetoinvesting_search_url_redirect' );
+
+
+/**
+* trims text to a space then adds ellipses if desired
+* @param string $input text to trim
+* @param int $length in characters to trim to
+* @param bool $ellipses if ellipses (...) are to be added
+* @param bool $strip_html if html tags are to be stripped
+* @return string
+*/
+function trim_text($input, $length, $ellipses = true, $strip_html = true) {
+
+
+    //strip tags, if desired
+    if ($strip_html) {
+        $input = strip_tags($input);
+    }
+
+    //trim whitespace
+    $input = preg_replace('/\s+/', ' ', $input);
+
+    //no need to trim, already shorter than trim length
+    if (strlen($input) <= $length) {
+        return $input;
+    }
+
+    //find last space within length
+    $last_space = strrpos(substr($input, 0, $length), ' ');
+    $trimmed_text = substr($input, 0, $last_space);
+
+    //add ellipses (...)
+    if ($ellipses) {
+        $trimmed_text .= '...';
+    }
+
+    return $trimmed_text;
+}
