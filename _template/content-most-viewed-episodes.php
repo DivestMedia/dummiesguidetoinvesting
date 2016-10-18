@@ -15,7 +15,7 @@ $mostviewed = query_posts([
 <section id="most-viewed">
     <div class="container">
 
-                            <a href="#" class="btn btn-viewmore btn-lg uppercase btn-yellow noradius size-12 bold pull-right">VIEW MORE</a>
+                            <a href="<?=site_url('videos')?>" class="btn btn-viewmore btn-lg uppercase btn-yellow noradius size-12 bold pull-right">VIEW MORE</a>
         <h4 class="uppercase size-25 bold">Most Viewed Episodes</h4>
         <hr />
 
@@ -32,7 +32,7 @@ $mostviewed = query_posts([
                 };
                 ?>
                 <div class="img-hover">
-                    <a href="http://youtube.com/watch?v=<?=$vid_id?>" class="image-hover lightbox" data-plugin-options="{&quot;type&quot;:&quot;iframe&quot;}">
+                    <a href="http://youtube.com/watch?v=<?=$vid_id?>" class="image-hover video-play">
                         <span class="image-hover-icon image-hover-dark">
                             <i class="fa fa-play"></i>
                         </span>
@@ -49,7 +49,7 @@ $mostviewed = query_posts([
                         </li>
                     </ul>
 
-                    <h4 class="text-left height-50 post-title nomargin"><a href="http://youtube.com/watch?v=<?=$vid_id?>"  class="lightbox" data-plugin-options="{&quot;type&quot;:&quot;iframe&quot;}"><?=$p->post_title?></a></h4>
+                    <h4 class="text-left height-50 post-title nomargin"><a href="http://youtube.com/watch?v=<?=$vid_id?>" class="video-play"><?=$p->post_title?></a></h4>
                 </div>
 
             <?php endforeach; ?>

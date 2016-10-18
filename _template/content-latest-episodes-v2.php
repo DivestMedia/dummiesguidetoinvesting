@@ -27,7 +27,7 @@ query_posts([
                         ?>
                         <div></div>
                     </div>
-                    <header class="margin-bottom-30">
+                    <header class="margin-bottom-30 video-details">
                         <h3><?=$post->post_title?></h3>
                     </header>
 
@@ -79,12 +79,12 @@ query_posts([
                             ?>
                             <div class="video-item margin-bottom-20 col-md-12 col-sm-12 col-xs-12">
                                 <div class="col-md-5 col-sm-5 col-xs-6" style="padding: 0;">
-                                    <a href="<?=$p->guid?>">
+                                    <a href="http://youtube.com/watch?v=<?=$vid_id?>">
                                         <img class="img-responsive episode-thumbnail" src="<?=$iod_video_thumbnail?>" alt="<?=$p->post_title?>" />
                                     </a>
                                 </div>
                                 <div class="col-md-7 col-sm-7 col-xs-6 cont-episode-details">
-                                    <a href="<?=$p->guid?>" title="<?=$p->post_title; ?>" class="title"><strong><?=$p->post_title; ?></strong></a>
+                                    <a href="http://youtube.com/watch?v=<?=$vid_id?>" title="<?=$p->post_title; ?>" class="title"><strong><?=$p->post_title; ?></strong></a>
                                     <label><i class="fa fa-eye fa-fw"></i><?=$iod->count_postviews($p->ID,true)?> views</label>
                                     <label><i class="fa fa-comments fa-fw"></i><?=$p->comment_count?> comments</label>
                                 </div>
@@ -98,7 +98,7 @@ query_posts([
                     }
                     ?>
 
-                    <a href="#" class="btn btn-viewmore btn-lg uppercase btn-yellow noradius size-12 bold">VIEW MORE</a>
+                    <a href="<?=site_url('videos')?>" class="btn btn-viewmore btn-lg uppercase btn-yellow noradius size-12 bold">VIEW MORE</a>
                 </div>
             </div>
         </div>

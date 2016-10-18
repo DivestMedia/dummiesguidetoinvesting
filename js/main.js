@@ -38,8 +38,8 @@ jQuery(window).ready(function () {
 			},1700);
 	    }
 	});
-	
-	
+
+
 
 	/** Isotope Blog
 	 *********************** **/
@@ -47,7 +47,7 @@ jQuery(window).ready(function () {
 
 	if(blog_isotope_container.length > 0) {
 		loadScript(plugin_path + 'isotope/isotope.pkgd.min.js', function() {
-			
+
 			// Isotope blog
 			if(jQuery().isotope) {
 				var _container = jQuery('#blog');
@@ -66,11 +66,11 @@ jQuery(window).ready(function () {
 				function _customrecalcW2() {
 
 					_dw		= jQuery(document).width();
-					if(_container.hasClass('fullwidth')) { // Fullwidth 
+					if(_container.hasClass('fullwidth')) { // Fullwidth
 
 						_w 		= jQuery(document).width();
 						_wItem	= (_w/_cols);
-						
+
 						if(_dw < 760) {
 							_wItem = (_w/2);
 						}
@@ -81,12 +81,12 @@ jQuery(window).ready(function () {
 						// Apply item width
 						jQuery("#blog>.blog-post-item").css({"width":_wItem});
 
-					} else { // Non Fullwidth 
+					} else { // Non Fullwidth
 
 						_mR		= parseInt(jQuery("#blog>.blog-post-item").css('margin-right'));
 						_w 		= jQuery("#blog").closest('.container').width();
 						_wItem 	= _w / _cols - _mR;
-						
+
 						if(_dw < 1200) {
 							_wItem = (_w/3);
 						}
@@ -108,7 +108,7 @@ jQuery(window).ready(function () {
 						jQuery('.flexslider').resize();
 					}
 
-				}	
+				}
 
 				setTimeout(function(){
 					_customrecalcW2();
@@ -116,7 +116,7 @@ jQuery(window).ready(function () {
 
 				jQuery(window).load(function(){
 
-					var _t = setTimeout(function(){ 
+					var _t = setTimeout(function(){
 
 						_container.isotope({
 							masonry: {},
@@ -145,8 +145,8 @@ jQuery(window).ready(function () {
 								}
 							 });
 
-						}); 
-						
+						});
+
 
 					}, 50 );
 
@@ -158,7 +158,7 @@ jQuery(window).ready(function () {
 
 				// On Resize
 				jQuery(window).resize(function() {
-					
+
 					if(window.customafterResizeApp2) {
 						clearTimeout(window.customafterResizeApp2);
 					}
@@ -189,7 +189,7 @@ jQuery(window).ready(function () {
 			if(jQuery().isotope) {
 
 				var _container = jQuery('#portfolio');
-				
+
 				// Calculate Item Width on Fullwidth portfolio
 				if(_container.hasClass('portfolio-isotope-2')) {
 					_cols = 2;
@@ -212,7 +212,7 @@ jQuery(window).ready(function () {
 				function _customrecalcW2() {
 					_dw		= jQuery(document).width();
 
-					if(_container.hasClass('fullwidth')) { // Fullwidth 
+					if(_container.hasClass('fullwidth')) { // Fullwidth
 
 						// _w 		= jQuery(document).width(); // NOT USED - problems on aside header
 						_w 		= _container.width();
@@ -228,7 +228,7 @@ jQuery(window).ready(function () {
 						// Apply item width
 						jQuery("#portfolio>.portfolio-item").css({"width":_wItem});
 
-					} else { // Non Fullwidth 
+					} else { // Non Fullwidth
 
 						_mR		= parseInt(jQuery("#portfolio>.portfolio-item").css('margin-right'));
 						_w 		= jQuery("#portfolio").closest('.container').width();
@@ -254,7 +254,7 @@ jQuery(window).ready(function () {
 						jQuery('.flexslider').resize();
 					}
 
-				}	
+				}
 				setTimeout(function(){
 					_customrecalcW2();
 				},5);
@@ -263,7 +263,7 @@ jQuery(window).ready(function () {
 
 				jQuery(window).load(function(){
 
-					var _t = setTimeout(function(){ 
+					var _t = setTimeout(function(){
 
 						_container.isotope({
 							masonry: {},
@@ -292,8 +292,8 @@ jQuery(window).ready(function () {
 								}
 							 });
 
-						}); 
-						
+						});
+
 
 					}, 50 );
 
@@ -328,5 +328,79 @@ jQuery(window).ready(function () {
 			}
 		});
 	}	/** end isotope **/
+
+	$('.cont-more-episodes').delegate('.video-item a','click',function(e){
+		e.preventDefault();
+
+		var $videogrid = $(this).parents( '.video-episodes' );
+            var $videobig = $videogrid.find('.video-episode-feature');
+            var $itembox = $( this )
+                .closest( '.video-item' );
+            var $videourl = $( this )
+                .attr( 'href' );
+
+            if ( $videourl.search( 'youtu.be/' ) != -1 ) {
+                var $id = $videourl.split( 'youtu.be/' )[ 1 ];
+            } else {
+                var $id = $videourl.split( '?v=' )[ 1 ];
+            }
+
+            $videobig.find( '.embed-responsive' )
+                .empty();
+            $( '.video-details h3' )
+                .html( $itembox.find( '.title' )
+                    .first()
+                    .clone().text() );
+            var $videoframe = $(
+                '<iframe class="embed-responsive-item" width="100%" height="100%" src="//www.youtube.com/v/' +
+                $id +
+                '?autoplay=1&controls=1&modestbranding=1&rel=0" frameborder="0" allowfullscreen>'
+            );
+            $videobig.find( '.embed-responsive' )
+                .first()
+                .append( $videoframe );
+
+            return false;
+	});
+
+	$('.owl-carousel').delegate('.owl-item .video-play','click',function(e){
+		e.preventDefault();
+
+		var $videogrid = $('.video-episodes' );
+			var $videobig = $videogrid.find('.video-episode-feature');
+			var $itembox = $( this )
+				.closest( '.owl-item' );
+			var $videourl = $( this )
+				.attr( 'href' );
+
+			if ( $videourl.search( 'youtu.be/' ) != -1 ) {
+				var $id = $videourl.split( 'youtu.be/' )[ 1 ];
+			} else {
+				var $id = $videourl.split( '?v=' )[ 1 ];
+			}
+
+			$videobig.find( '.embed-responsive' )
+				.empty();
+			$( '.video-details h3' )
+				.html( $itembox.find( '.post-title' )
+					.first()
+					.clone().text() );
+			var $videoframe = $(
+				'<iframe class="embed-responsive-item" width="100%" height="100%" src="//www.youtube.com/v/' +
+				$id +
+				'?autoplay=1&controls=1&modestbranding=1&rel=0" frameborder="0" allowfullscreen>'
+			);
+			$videobig.find( '.embed-responsive' )
+				.first()
+				.append( $videoframe );
+
+				$( 'html, body' )
+				                .animate( {
+				                    scrollTop: $videogrid.offset()
+				                        .top - 300
+				                }, 300 );
+			return false;
+	});
+
 
 });
