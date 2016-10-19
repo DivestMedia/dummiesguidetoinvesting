@@ -7,6 +7,19 @@ $channels = get_terms([
     'hide_empty' => false
 ]);
 
+// Sorting channels
+$sort = [
+    'starting-out' => 0,
+    'assets' => 1,
+    'vehicles' => 2,
+    'strategies' => 3,
+];
+$newchannels = [[],[],[],[]];
+foreach ($channels as $key => $channel) {
+    $newchannels[$sort[$channel->slug]] = $channel;
+}
+
+$channels = $newchannels;
 ?>
 
 <section id="popular-channels">

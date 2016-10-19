@@ -7,16 +7,18 @@ $mostviewed = query_posts([
     'post_type' => [
         'iod_video'
     ],
-    'orderby' => 'date',
     'order' => 'DESC',
     'post_status'      => 'publish',
+	'order'      => 'ASC',
+    'orderby'  => array( 'meta_value_num' => 'DESC', 'date' => 'DESC' ),
+	'meta_key' => 'view-count'
 ]);?>
 
 <section id="most-viewed">
     <div class="container">
 
                             <a href="<?=site_url('videos')?>" class="btn btn-viewmore btn-lg uppercase btn-yellow noradius size-12 bold pull-right">VIEW MORE</a>
-        <h4 class="uppercase size-25 bold">Most Viewed Episodes</h4>
+        <h4 class="uppercase size-25 bold">Most Viewed Videos</h4>
         <hr />
 
         <div class="owl-carousel owl-padding-10 buttons-autohide controlls-over margin-top-50" data-plugin-options='{"singleItem": false, "items":"4", "autoPlay": 4000, "navigation": true, "pagination": false, "stopOnHover": true }'>

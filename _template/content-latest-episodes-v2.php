@@ -85,8 +85,8 @@ query_posts([
                                 </div>
                                 <div class="col-md-7 col-sm-7 col-xs-6 cont-episode-details">
                                     <a href="http://youtube.com/watch?v=<?=$vid_id?>" title="<?=$p->post_title; ?>" class="title"><strong><?=$p->post_title; ?></strong></a>
-                                    <label><i class="fa fa-eye fa-fw"></i><?=$iod->count_postviews($p->ID,true)?> views</label>
-                                    <label><i class="fa fa-comments fa-fw"></i><?=$p->comment_count?> comments</label>
+                                    <label><i class="fa fa-clock-o"></i> <?=get_post_meta($p->ID,'video-duration',true)?></label>
+                                    <label><i class="fa fa-fw fa-eye margin-right-10"></i><?=(get_post_meta($p->ID,'view-count',true) ?: 0)?></i> views</label>
                                 </div>
                             </div>
                             <?php
