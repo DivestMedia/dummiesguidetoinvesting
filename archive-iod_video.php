@@ -1,72 +1,183 @@
 <?php
-global $post;
- query_posts([
-     'posts_per_page' => 1,
-     'posts_per_archive_page' => 1,
-     'paged' => get_query_var('paged'),
-     'post_type' => [
-         'iod_video'
-     ],
-     'orderby' => 'date',
-     'order' => 'DESC',
-     'post_status'      => 'publish',
- ]);
+global $wpdb,$post;
 get_header();
-?>
-			<section class="dark" style="background-color: #3b3b3b;">
-				<div class="container">
-					<header class="text-center margin-bottom-30 section-title-container">
-						<h3>Invest or Divest Latest Episodes</h3>
-					</header>
-					<div class="row grid-color">
-						<div class="col-md-8 col-sm-12">
-							<?php while ( have_posts() ) : the_post(); ?>
-		                        <div class="embed-responsive embed-responsive-16by9">
-		                            <?php
-		                            $iod_video = json_decode(get_post_meta( $post->ID, '_iod_video',true))->embed->url;
-		                            echo wp_oembed_get($iod_video, '');
-		                            ?>
-		                            <div></div>
-		                        </div>
-		                        <header class="margin-bottom-30">
-		                            <h3><?=$post->post_title?></h3>
-		                        </header>
-		                    <?php endwhile; ?>
-							<div class="text-right"><?=posts_pagination()?></div>
-						 	<? wp_reset_postdata(); ?>
-						</div>
-						<div class="col-md-4 col-sm-12">
-							<?=InvestOrDivestWidget::generate_side_widget(6,$post->ID)?>
-						</div>
-					</div>
-					<br>
-					<header class="text-center margin-bottom-30">
-						<h3>More from Our Channels</h3>
-					</header>
-					<!-- Featured Videos -->
-					<?=InvestOrDivestWidget::generate_featured_videos(4,$post->ID)?>
-					<header class="text-center margin-top-40">
-						<h4 class="margin-bottom-10">Don't miss out on the latest Dummies Guide to Investing videos!</h4>
-						<button type="button" class="btn btn-warning btn-sm btn-custom yellow">SUBSCRIBE NOW</button>
-					</header>
-				</div>
-			</section>
+
+$mainpost = $post;
 
 
+$latestnews = [];
+// Get 5 Latest News for each category
+// WP_Query arguments
 
-			<!-- FEATURES -->
-			<section id="features">
-				<div class="container">
+$mainpost = $post;
 
-					<div class="row cont-ads-long">
-						<div class="col-md-12">
-							<img class="img-responsive" src="<?=CUSTOM_ASSETS?>ads.jpg" alt="">
-						</div>
-					</div>	
-					<?php include_once('_template/world-news-slider.php');?>
-				</div>
-			</section>
-			<!-- /FEATURES -->
-<?
+$post = get_posts([
+	'posts_per_page' => 5,
+	'posts_per_archive_page' => 5,
+	'paged' => get_query_var('paged') ?: 1,
+	'post_type' => [
+		'iod_video'
+	],
+	'orderby' => 'date',
+	'order' => 'DESC',
+	'post_status'      => 'publish',
+	'taxonomy' => get_query_var('taxonomy'),
+	'iod_category' => get_query_var('taxonomy')=='iod_category' ? get_query_var('iod_category') : false
+]);
 
+foreach ($post as $key => $video) {
+	$vcats = [];
+	$video_cats = wp_get_post_terms($video->ID,'iod_category');
+	$hascat = false;
+	if($video_cats){
+		$hascat = true;
+		foreach ($video_cats as $vidcat) {
+			$vcats[] = '<a href="'.get_term_link($vidcat->term_id,'iod_category').'">'.$vidcat->name.'</a>';
+		}
+	}
+
+	$iod_video = '';
+	$iod_video_thumbnail = '';
+	if($video){
+		// $video = $video[0];
+		$iod_video = json_decode(get_post_meta( $video->ID, '_iod_video',true))->embed->url;
+		$ytpattern = '/^.*(?:(?:youtu\.be\/|v\/|vi\/|u\/\w\/|embed\/)|(?:(?:watch)?\?v(?:i)?=|\&v(?:i)?=))([^#\&\?]*).*/';
+		if(preg_match($ytpattern,$iod_video,$vid_id)){
+			$iod_video_thumbnail = 'http://img.youtube.com/vi/'.end($vid_id).'/mqdefault.jpg';
+		}else{
+			$iod_video_thumbnail = 'http://www.askgamblers.com/uploads/original/isoftbet-2-5474883270a0f81c4b8b456b.png';
+		};
+	}
+
+	$latestnews[] = [
+		'title' => $hascat ? implode(',',$vcats) : 'Video',
+		'description' => xyr_smarty_limit_chars($video->post_title,40),
+		'date' => $video->post_date,
+		'thumbnail' => $iod_video_thumbnail,
+		'link' => $iod_video ?: get_the_permalink($video->ID)
+	];
+}
+if(count($latestnews)>=1):
+	$post = $latestnews;
+	$GLOBALS['featureTitle'] = 'Beginner&apos; <span>Manual</span>';
+	$GLOBALS['featureButton'] = 'PLAY NOW';
+	$GLOBALS['featureNoMore'] = true;
+	get_template_part( '_template/content', 'feature-videos' );
+endif;
+$post = $mainpost;
+
+
+$video_cats = get_categories([
+	'type'                     => 'iod_video',
+	'child_of'                 => 0,
+	'parent'                   => 0,
+	'orderby'                  => 'name',
+	'order'                    => 'ASC',
+	'hide_empty'               => 0,
+	'hierarchical'             => 1,
+	'exclude'                  => '1',
+	'include'                  => '',
+	'number'                   => '',
+	'taxonomy'                 => 'iod_category',
+	'pad_counts'               => false
+]);
+
+
+// Sorting channels
+$sort = [
+	'starting-out' => 0,
+	'assets' => 1,
+	'vehicles' => 2,
+	'strategies' => 3,
+];
+$newvideocats = [[],[],[],[]];
+foreach ($video_cats as $key => $cat) {
+	if(isset($sort[$cat->slug]))
+	$newvideocats[$sort[$cat->slug]] = $cat;
+}
+
+$video_cats = $newvideocats;
+
+
+$featuredVidsCategories = [];
+$featuredVidsCategories[] = [
+	'id' => 0,
+	'name' => 'All Videos',
+	'active' => get_query_var('taxonomy')!='iod_category',
+	'link' => '/videos'
+];
+
+foreach ($video_cats as $key => $cat) {
+
+	$child = [];
+	$child_cats = get_categories([
+		'type'                     => 'iod_video',
+		'parent'                   => $cat->term_id,
+		'orderby'                  => 'name',
+		'order'                    => 'ASC',
+		'hide_empty'               => 0,
+		'hierarchical'             => 1,
+		'exclude'                  => '1',
+		'include'                  => '',
+		'number'                   => '',
+		'taxonomy'                 => 'iod_category',
+		'pad_counts'               => false
+	]);
+
+
+	if(!empty($child_cats)){
+		foreach ($child_cats as $kk => $cc) {
+			$child_cats[$kk] = [
+				'id' => $cc->term_id,
+				'name' => $cc->name,
+				'link' => get_term_link($cc->term_id,'iod_category'),
+				'active' => get_query_var('iod_category')==$cc->slug
+			];
+		}
+		$child = $child_cats;
+	}
+
+	$featuredVidsCategories[] = [
+		'id' => $cat->term_id,
+		'name' => $cat->name,
+		'link' => get_term_link($cat->term_id,'iod_category'),
+		'child' => $child,
+		'active' => get_query_var('iod_category')==$cat->slug
+	];
+
+}
+
+$args = [
+	'posts_per_page' => 12,
+	'posts_per_archive_page' => 12,
+	'paged' => get_query_var('paged') ?: 1,
+	'page' => get_query_var('paged') ?: 1,
+	'post_type' => [
+		'iod_video'
+	],
+	'showposts' => 12,
+	'orderby' => 'date',
+	'order' => 'DESC',
+
+];
+if(!empty(get_query_var('iod_category'))){
+	$args['iod_category'] = get_query_var('taxonomy')=='iod_category' ? get_query_var('iod_category') : false;
+	$args['taxonomy'] = 'iod_category';
+}
+
+query_posts($args);
+
+$featuredVidsNews =  new WP_Query($args);
+
+$featuredVids = [
+	'categories' => $featuredVidsCategories,
+	'posts' => $featuredVidsNews
+];
+
+$GLOBALS['featuredVids'] = $featuredVids;
+$GLOBALS['featuredTitle'] = !empty(get_query_var('iod_category')) ? 'All '.(get_term_by( 'slug', get_query_var('iod_category'), 'iod_category')->name) : 'All Videos';
+
+get_template_part( '_template/content', 'postsvids' );
+// get_template_part( 'partials/content', 'investordivest' );
 get_footer();
+?>

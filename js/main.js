@@ -388,7 +388,7 @@ jQuery(window).ready(function () {
 			var $videoframe = $(
 				'<iframe class="embed-responsive-item" width="100%" height="100%" src="//www.youtube.com/v/' +
 				$id +
-				'?autoplay=1&controls=1&modestbranding=1&rel=0" frameborder="0" allowfullscreen>'
+				'?autoplay=1&controls=1&modestbranding=1&rel=0" frameborder="0" allowfullscreen></iframe>'
 			);
 			$videobig.find( '.embed-responsive' )
 				.first()
@@ -404,3 +404,291 @@ jQuery(window).ready(function () {
 
 
 });
+
+
+
+
+jQuery( function ( $ ) {
+    $( '.video-grid' )
+        .delegate( '.video-grid-play', 'click', function ( e ) {
+            e.preventDefault();
+
+
+
+            var $videogrid = $( this )
+                .closest( '.video-grid' );
+            var $videobig = $videogrid.find( '.video-big-wrapper' );
+            var $videourl = $( this )
+                .attr( 'href' );
+            if ( $videourl.search( 'youtu.be/' ) != -1 ) {
+                var $id = $videourl.split( 'youtu.be/' )[ 1 ];
+            } else {
+                var $id = $videourl.split( '?v=' )[ 1 ];
+            }
+
+            $videobig.find( 'figure iframe' )
+                .remove();
+
+            // Swap the Vids
+            var $thisBox = $( this )
+                .closest( '.item-box' );
+
+            if ( !( $thisBox.hasClass( 'item-box-big' ) ) ) {
+                // If this box not in the big box
+
+                var $theBiggerBox = $videobig.find( '.item-box' )
+                    .first();
+                $theBiggerBox.find( 'img' )
+                    .css( {
+                        'min-height': ""
+                    } );
+                $thisBox.css( {
+                    'height': ""
+                } );
+
+                $thisBox.find( '.inner > img' )
+                    .remove();
+
+                var $biggerBoxSpanBlock = $theBiggerBox.find(
+                        'span.block' )
+                    .first();
+                $biggerBoxSpanBlock.empty();
+                var $biggerBoxSpanBlockACSS = $theBiggerBox.find(
+                        '.video-grid-play' )
+                    .first()
+                    .attr( 'class' );
+                var $thisBoxSpanBlock = $thisBox.find(
+                        '.inner span.block' )
+                    .first();
+                var $thisBoxSpanBlockACSS = $thisBoxSpanBlock.find(
+                        'a' )
+                    .first()
+                    .attr( 'class' );
+
+                $theBiggerBox.find( '.inner .video-grid-play' )
+                    .attr( 'class', $thisBoxSpanBlockACSS );
+                $theBiggerBox.find( '.inner .video-grid-play' )
+                    .appendTo( $biggerBoxSpanBlock );
+                $thisBox.find( '.inner span.block .video-grid-play' )
+                    .attr( 'class', $biggerBoxSpanBlockACSS );
+                $thisBox.find( '.inner span.block .video-grid-play' )
+                    .insertAfter( $thisBoxSpanBlock );
+                $theBiggerBox.removeClass()
+                    .addClass( $thisBox.attr( 'class' ) );
+                $thisBox.removeClass()
+                    .addClass(
+                        'item-box item-box-big noshadow margin-bottom-10'
+                    );
+
+                $theBiggerBox.insertAfter( $thisBox );
+                $thisBox.appendTo( $videobig );
+
+                $( '.video-grid-details' )
+                    .html( $thisBox.find( '.inner h3' )
+                        .first()
+                        .clone() );
+
+            }
+
+            // Change Height of NonPlaying Column
+
+            // Change Width
+            $videogrid.find( '.video-big-wrapper' )
+                .removeClass( 'col-md-6' )
+                .addClass( 'col-md-9 video-now-playing' );
+            $videogrid.find( '.video-grid-column-wrapper' )
+                .addClass( 'video-grid-playing' );
+
+            var $videoPlayingHeight = $videogrid.find(
+                    '.video-big-wrapper' )
+                .height();
+            var $videoNonPlayingPadding = 10;
+            var $videoNonPlayingItemHeight = ( $videoPlayingHeight /
+                4 ) - $videoNonPlayingPadding;
+
+
+            $videogrid.find( '.video-grid-column-wrapper .item-box' )
+                .css( 'height', $videoNonPlayingItemHeight );
+
+            $videogrid.find( '.video-grid-column-wrapper .item-box' )
+                .each( function ( i, v ) {
+
+                    $( v )
+                        .find( '.inner > img' )
+                        .remove();
+
+                    if ( i > 0 ) {
+                        $( v )
+                            .addClass( 'margin-top-10' );
+                    }
+                    var $newimage = $( v )
+                        .find( 'img' )
+                        .clone();
+
+                    $newimage.prependTo( $( v )
+                        .find( '.inner' ) );
+                } );
+
+
+
+            var $videoframe = $(
+                '<div class="embed-responsive embed-responsive-16by9"> <iframe class="embed-responsive-item" width="100%" height="100%" src="//www.youtube.com/v/' +
+                $id +
+                '?autoplay=1&controls=1&modestbranding=1&rel=0" frameborder="0" allowfullscreen></iframe></div>'
+            );
+            $videobig.find( 'figure' )
+                .first()
+                .append( $videoframe );
+        } );
+
+    $( '#all-videos .video-grid-play' )
+        .click( function ( e ) {
+            e.preventDefault();
+            $( '.item-box-big .video-grid-play' )
+                .trigger( 'click' );
+            var $videogrid = $( '.video-grid' )
+                .first();
+            var $videobig = $videogrid.find( '.video-big-wrapper' );
+            var $itembox = $( this )
+                .closest( '.item-box' );
+            var $videourl = $( this )
+                .attr( 'href' );
+
+            if ( $videourl.search( 'youtu.be/' ) != -1 ) {
+                var $id = $videourl.split( 'youtu.be/' )[ 1 ];
+            } else {
+                var $id = $videourl.split( '?v=' )[ 1 ];
+            }
+
+            $videobig.find( 'figure iframe' )
+                .remove();
+            $( '.video-grid-details' )
+                .html( $itembox.find( '.inner h3' )
+                    .first()
+                    .clone() );
+            var $videoframe = $(
+                '<div class="embed-responsive embed-responsive-16by9"> <iframe class="embed-responsive-item" width="100%" height="100%" src="//www.youtube.com/v/' +
+                $id +
+                '?autoplay=1&controls=1&modestbranding=1&rel=0" frameborder="0" allowfullscreen></iframe></div>'
+            );
+            $videobig.find( 'figure' )
+                .first()
+                .append( $videoframe );
+
+            $( 'html, body' )
+                .animate( {
+                    scrollTop: $videogrid.offset()
+                        .top - 100
+                }, 300 );
+
+
+            if ( $( '.video-grid-column-wrapper' )
+                .length != 1 ) {
+
+                var $newvidcolumnwrapper = $(
+                    '<div class="col-md-3 col-sm-6 col-xs-6 col-2xs-12 video-grid-column-wrapper video-grid-playing" />'
+                );
+                $( '.video-grid-column-wrapper' )
+                    .remove();
+
+
+                $( '#planning .item-box' )
+                    .each( function () {
+                        $newvidcolumnwrapper.append( $( this )
+                            .clone() );
+                    } );
+
+                $newvidcolumnwrapper.css( 'max-height', $videogrid.find(
+                        '.video-big-wrapper .item-box-big' )
+                    .height() );
+                $newvidcolumnwrapper.css( 'overflow', 'auto' );
+                $newvidcolumnwrapper.insertAfter( $videobig );
+
+
+                $videogrid.find( '.video-big-wrapper' )
+                    .removeClass( 'col-md-6' )
+                    .addClass( 'col-md-9 video-now-playing' );
+                $videogrid.find( '.video-grid-column-wrapper' )
+                    .addClass( 'video-grid-playing' );
+
+                var $videoPlayingHeight = $videogrid.find(
+                        '.video-big-wrapper' )
+                    .height();
+                var $videoNonPlayingPadding = 10;
+                var $videoNonPlayingItemHeight = (
+                    $videoPlayingHeight /
+                    4 ) - $videoNonPlayingPadding;
+
+                $videogrid.find(
+                        '.video-grid-column-wrapper .item-box' )
+                    .css( 'height', $videoNonPlayingItemHeight );
+
+                $videogrid.find(
+                        '.video-grid-column-wrapper .item-box' )
+                    .each( function ( i, v ) {
+
+                        $( v )
+                            .find( '.inner > img' )
+                            .remove();
+
+                        if ( i > 0 ) {
+                            $( v )
+                                .addClass( 'margin-top-10' );
+                        } else {
+                            $( v )
+                                .removeClass( 'margin-top-10' );
+                        }
+                        var $newimage = $( v )
+                            .find( 'img' )
+                            .clone();
+
+                        $newimage.prependTo( $( v )
+                            .find( '.inner' ) );
+                    } );
+
+
+            }
+
+            return false;
+        } );
+
+
+
+    $( '#container-coming-soon .coming-soon-play' )
+        .click( function ( e ) {
+            e.preventDefault();
+
+            var $videogrid = $(this).parents( '.cont-c-vid' );
+            var $videobig = $videogrid
+            var $itembox = $( this )
+                .closest( '.item-box' );
+            var $videourl = $( this )
+                .attr( 'href' );
+
+                console.log($videourl);
+            if ( $videourl.search( 'youtu.be/' ) != -1 ) {
+                var $id = $videourl.split( 'youtu.be/' )[ 1 ];
+            } else {
+                var $id = $videourl.split( '?v=' )[ 1 ];
+            }
+
+            $videobig.find( 'figure' )
+                .empty();
+            $( '.video-grid-details' )
+                .html( $itembox.find( '.inner h3' )
+                    .first()
+                    .clone() );
+            var $videoframe = $(
+                '<iframe class="embed-responsive-item" width="100%" height="100%" src="//www.youtube.com/v/' +
+                $id +
+                '?autoplay=1&controls=1&modestbranding=1&rel=0" frameborder="0" allowfullscreen>'
+            );
+            $videobig.find( 'figure' )
+                .first()
+                .append( $videoframe );
+
+            return false;
+        } );
+
+		
+        } );

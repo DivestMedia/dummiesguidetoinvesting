@@ -12,7 +12,7 @@ $latestnews = [];
 $mainpost = $post;
 $per_page = 5;
 $tags =null;
-$categories = 2;
+$categories = '48,49,50';
 $page = 1;
 
 
@@ -21,7 +21,7 @@ $post = json_decode(file_get_contents_curl(add_query_arg([
 	'tags' => $tags,
 	'categories' => $categories,
 	'per_page' => $per_page
-], NEWSBASEURL . 'wp-json/wp/v2/posts')));
+], ARTICLEBASEURL . 'wp-json/wp/v2/posts')));
 
 foreach ($post as $key => $news) {
 

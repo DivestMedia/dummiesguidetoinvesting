@@ -16,7 +16,13 @@
  * @since Twenty Fifteen 1.0
  */
 
-get_header(); ?>
+get_header();
+
+if(is_archive('iod_video')){
+	include 'archive-iod_video.php';
+}else{
+
+?>
 
 
 	<section id="primary" class="content-area">
@@ -62,4 +68,6 @@ get_header(); ?>
 		</main><!-- .site-main -->
 	</section><!-- .content-area -->
 
-<?php get_footer(); ?>
+<?php
+}
+get_footer(); ?>

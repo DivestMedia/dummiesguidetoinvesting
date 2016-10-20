@@ -1,4 +1,5 @@
 <?php
+get_template_part( '_template/content', 'ads-footer' );
 get_template_part( '_template/content', 'vip-subscribers' );
 ?>
 <!-- FOOTER -->
@@ -47,7 +48,7 @@ get_template_part( '_template/content', 'vip-subscribers' );
 		<!-- /Social Icons -->
 
 		<p>
-			 DummiesGuidetoInvesting.com is part of the <a href="http://www.divestmedia.com" style="color: #0072bc;font-weight: bold;">Divest Media Network</a>
+			DummiesGuidetoInvesting.com is part of the <a href="http://www.divestmedia.com" style="color: #0072bc;font-weight: bold;">Divest Media Network</a>
 		</p>
 	</div>
 
@@ -79,26 +80,140 @@ get_template_part( '_template/content', 'vip-subscribers' );
 </div>
 
 </footer>
-			<!-- /FOOTER -->
-		</div>
-		<!-- /wrapper -->
+<!-- /FOOTER -->
 
-		<!-- PRELOADER -->
-		<!-- <div id="preloader">
-			<div class="inner">
-				<span class="loader"></span>
+
+<?php if(!is_user_logged_in()): ?>
+	<div id="modal-restrict" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" data-backdrop="static" data-show="true" data-autoload-delay="200">
+		<div class="modal-dialog modal-lg" style="max-width: 770px;">
+			<div class="modal-content">
+				<!-- body modal -->
+				<div class="modal-body" style="padding: 0 15px;">
+					<div class="row">
+						<div class="col-md-3 padding-0" style="background-color: #d1d1d1;height: 100%;position: relative;">
+
+							<figure style="background-image: url('<?=get_stylesheet_directory_uri();?>/assets/img/restrict.png');background-size: cover;background-repeat: no-repeat;height: 405px;background-position: center;"></figure>
+							<div class="text-center" style="position: absolute;bottom: 10px;width: 100%;">
+								<div style="background-color: rgba(0,0,0,.6);color:#fff;padding:15px 0;">
+									<label class="margin-bottom-0">JOIN NOW!</label>
+									<label class="size-70 margin-bottom-0 weight-700">FREE</label>
+									<label class="margin-bottom-0">PRIVACY PROTECTION</label>
+								</div>
+								<div style="color: #000;border-bottom: 1px solid #000;border-top: 1px solid #000;margin-top: 14px;width: 75%;margin: 17px auto 0;">LIMITED TIME OFFER</div>
+							</div>
+
+						</div>
+						<div class="col-md-9 padding-15">
+							<div class="text-center">
+								<h2 class="letter-spacing-2 margin-top-20 margin-bottom-0" style="color:#ee3f3f;">CONTENT RESTRICTED</h2>
+								<p class="margin-bottom-40">CONTENT ONLY AVAILABLE TO OUR MEMBERS</p>
+								<div style="width: 300px;margin:0 auto">
+									<a href="<?=site_url('accounts/register')?>" class="btn btn-success btn-lg btn-block">SIGN UP NOW</a>
+								</div>
+								<div style="padding-top: 5px;width: 300px;margin:0 auto">
+									<a href="<?=site_url('accounts/login')?>" class="btn btn-info btn-lg btn-block">ALREADY A MEMBER</a>
+								</div>
+								<div class="margin-top-20">
+									<a href="<?=site_url()?>" class="btn btn-link">NO THANKS</a>
+								</div>
+							</div>
+							<!-- <div class="margin-top-20" style="padding: 0 20px;">
+							<small>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer orci nunc, auctor sed eros eget, efficitur rhoncus nibh. Suspendisse congue mauris nec dolor consectetur, venenatis fermentum erat semper.</small>
+						</div> -->
+					</div>
+				</div>
 			</div>
-		</div> -->
-		<!-- /PRELOADER -->
+		</div>
+	</div>
+</div>
+<?php endif; ?>
 
 
-		<!-- SCROLL TO TOP -->
-		<a href="#" id="toTop"></a>
-<?
-		wp_footer();
-		global $_footers;
-		echo $_footers;
-		?>
-		<script type='text/javascript' src='<?=get_stylesheet_directory_uri();?>/js/main.js'></script>
-	</body>
+<div id="ask-advisor-modal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" >
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+
+			<!-- header modal -->
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+				<h4 class="modal-title" id="myLargeModalLabel">Ask Bruce Curran</h4>
+			</div>
+
+			<!-- body modal -->
+			<div class="modal-body">
+
+				<div class="row">
+
+					<div class="col-sm-3">
+
+						<img class="img-responsive" src="http://www.marketmasterclass.com/wp-content/uploads/sites/8/2016/09/bruce-curran-profile-3.png" alt="">
+
+					</div>
+
+					<div class="col-sm-9">
+
+						<form class="validate nomargin" action="<?=admin_url('admin-ajax.php')?>" method="post" data-success="Thank you for your message!" data-toastr-position="top-center" novalidate="novalidate">
+
+							<h4>Please leave your email and questions below and I will respond to it as soon as I can.</h4>
+							<input type="hidden" name="action" value="save_advisor_message">
+							<input type="hidden" name="contact[advisor]" value="Bruce Curran">
+							<div class="fancy-form">
+								<i class="fa fa-envelope"></i>
+								<input type="email" class="form-control" name="contact[email]" placeholder="Your Email Address" required="">
+							</div>
+
+							<div class="fancy-form">
+								<textarea rows="3" name="contact[message]" class="form-control word-count" data-maxlength="200" data-info="textarea-words-info" placeholder="Leave a message" required=""></textarea>
+
+								<i class="fa fa-comments"><!-- icon --></i>
+
+								<span class="fancy-hint size-11 text-muted">
+									<strong>Hint:</strong> 200 words allowed!
+									<span class="pull-right">
+										<span id="textarea-words-info">0/200</span> Words
+									</span>
+								</span>
+
+							</div>
+							<div class="row">
+								<div class="col-md-12">
+									<button type="submit" id="submit-advisor-modal" class="btn btn-3d btn-teal pull-right margin-top-30" data-dismiss="modal">
+										Send Now
+									</button>
+								</div>
+							</div>
+							<input type="hidden" name="is_ajax" value="true"></form>
+						</div>
+
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+
+</div>
+
+
+<!-- SCROLL TO TOP -->
+<a href="#" id="toTop"></a>
+<?php
+wp_footer();
+global $_footers;
+echo $_footers;
+?>
+<script type='text/javascript' src='<?=get_stylesheet_directory_uri();?>/js/main.js'></script>
+<?php if(!is_user_logged_in()): ?>
+	<script>
+	$(function(){
+		$('a[href$="accounts"]').click(function(e){
+			e.preventDefault();
+			$('#modal-restrict').modal('show');
+			return false;
+		});
+	});
+	</script>
+<?php endif;?>
+</body>
 </html>

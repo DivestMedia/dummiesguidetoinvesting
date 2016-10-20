@@ -17,6 +17,10 @@ query_posts([
         $iod = new InvestOrDivestWidget();
         ?>
         <div class="row grid-color">
+            <div class="col-md-12">
+                <h4 class="uppercase size-25 bold"><strong>D</strong>ivest <strong>M</strong>edia TV</h4>
+                <hr />
+            </div>
             <div class="col-md-8 col-sm-12 padding-top-20 video-episode-feature">
                 <?php while ( have_posts() ) : the_post(); ?>
 

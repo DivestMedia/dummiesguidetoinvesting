@@ -61,9 +61,16 @@
 								</form>
 							</div>
 						</li>
+
 						<!-- /SEARCH -->
-						<li><a href="<?=site_url('accounts/login')?>" class="btn btn-block btn-login">LOGIN</a></li>
-						<li><a href="<?=site_url('accounts/register')?>" class="btn btn-block btn-login">REGISTER</a></li>
+						<?php if(!is_user_logged_in()):?>
+							<li><a href="<?=site_url('accounts/login')?>" class="btn btn-block btn-login">LOGIN</a></li>
+							<li><a href="<?=site_url('subscriptions')?>" class="btn btn-block btn-login">REGISTER</a></li>
+						<?php else: ?>
+							<li class="text-welcome hidden-xs">Hi, <strong><?=xyr_smarty_limit_chars(wp_get_current_user()->nickname,16,false)?></strong></li>
+							<li><a href="<?=site_url('accounts')?>" class="btn btn-block btn-login">MY ACCOUNT</a></li>
+							<li><a href="<?=wp_logout_url(home_url())?>" class="btn btn-block btn-login">LOGOUT</a></li>
+						<?php endif; ?>
 						<li>
 							<a href="#">
 								<span class="word-rotator header-word-rotator active" data-delay="2000" style="height: 21px;">
@@ -93,9 +100,10 @@
 								<img src="<?=CUSTOM_ASSETS?>dummies-logo-brand.png" alt="" class="custom-logo">
 							</a>
 							<div class="pull-right">
-								<a href="#">
-									<img src="<?=CUSTOM_ASSETS?>ads-header.jpg" alt="" class="img-responsive">
-								</a>
+								<?php
+									if(is_active_sidebar('home-ads-top'))
+										dynamic_sidebar('home-ads-top');
+								?>
 							</div>
 						</div>
 					</div>
@@ -117,18 +125,18 @@
 					<div class="navbar-collapse pull-right nav-main-collapse collapse submenu-dark">
 						<nav class="nav-main">
 							<?php
+							if(!empty(wp_get_nav_menu_items('Main Menu'))){
+								$_menu = wp_nav_menu(array(
+									'menu' => 'Main',
+									'walker' => new custom_xyren_smarty_walker_nav_menu(),
+									'menu_id'=>'topMain',
+									'container' =>'ul',
+									'menu_class' =>'nav nav-pills nav-main has-topBar',
+									'echo' => false
+								));
 
-							$_menu = wp_nav_menu(array(
-								'menu' => 'Main menu',
-								'walker' => new custom_xyren_smarty_walker_nav_menu(),
-								'menu_id'=>'topMain',
-								'container' =>'ul',
-								'menu_class' =>'nav nav-pills nav-main has-topBar',
-								'echo' => false
-							));
-
-							echo $_menu;
-
+								echo $_menu;
+							}
 							?>
 						</nav>
 					</div>
@@ -140,7 +148,7 @@
 
 		</div>
 		<div class="cont-askanexpert">
-			<a class="askanexpert-avatar" href="#" title="Ask an Expert"><img class="img-responsive" src="<?=CUSTOM_ASSETS?>askanexpert_avatar.png" alt=""></a>
+			<a class="askanexpert-avatar" href="#ask-advisor-modal" data-toggle="modal" title="Ask an Expert"><img class="img-responsive" src="<?=CUSTOM_ASSETS?>askanexpert_avatar.png" alt=""></a>
 			<div class="askanexpert-message"><img class="img-responsive" src="<?=CUSTOM_ASSETS?>askanexpert-message.png" alt=""></div>
 			<a href="<?=home_url('/ask-an-expert')?>"><button class="btn btn-warning btn-block btn-custom yellow btn-askanexpert"> ASK AN EXPERT</button></a>
 		</div>
