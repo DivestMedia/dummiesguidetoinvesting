@@ -59,7 +59,7 @@ foreach ($post as $key => $video) {
 }
 if(count($latestnews)>=1):
 	$post = $latestnews;
-	$GLOBALS['featureTitle'] = 'Beginner&apos; <span>Manual</span>';
+	$GLOBALS['featureTitle'] = 'Beginner&apos;s <span>Manual</span>';
 	$GLOBALS['featureButton'] = 'PLAY NOW';
 	$GLOBALS['featureNoMore'] = true;
 	get_template_part( '_template/content', 'feature-videos' );

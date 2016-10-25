@@ -37,7 +37,7 @@ global $post,$featureTitle,$featureButton;
                                     <span class="block size-11 text-center color-theme uppercase">
                                         <?=date('F j, Y',strtotime($video['date']))?>
                                     </span>
-                                    <a class="pos-bottom block btn-sm btn secondary-bg text-center noradius weight-700" href="<?=$video['link']?>"><?=($featureButton ?: 'PLAY NOW')?></a>
+                                    <a class="pos-bottom block btn-sm btn secondary-bg text-center noradius weight-700" href="<?=$video['link']?>" style="color:#fff!important"><?=($featureButton ?: 'PLAY NOW')?></a>
                                 </span>
                             </span>
 

@@ -18,7 +18,7 @@
                                 <!-- <h3 class="margin-top-10 margin-bottom-10">User-based Video Reviews</h3> -->
                                 <span class="block size-11 text-center color-theme uppercase">
                                     Introduction: Invest or Divest									</span>
-                                    <a class="pos-bottom block btn-sm btn secondary-bg text-center noradius weight-700 coming-soon-play" href="https://youtu.be/Rh3-s3GVWp4" data-plugin-options="{&quot;type&quot;:&quot;iframe&quot;}">PLAY NOW</a>
+                                    <a class="pos-bottom block btn-sm btn secondary-bg text-center noradius weight-700 coming-soon-play" href="https://youtu.be/Rh3-s3GVWp4" data-plugin-options="{&quot;type&quot;:&quot;iframe&quot;}" style="color:#fff!important">PLAY NOW</a>
                                 </span>
                             </span>
 
@@ -45,7 +45,7 @@
                                     <!-- <h3 class="margin-top-10 margin-bottom-10">Beginner's Manual</h3> -->
                                     <span class="block size-11 text-center color-theme uppercase">
                                         Webinars: Bonds									</span>
-                                        <a class="pos-bottom block btn-sm btn secondary-bg text-center noradius weight-700 coming-soon-play" href="https://youtu.be/htnkGx46-JE" data-plugin-options="{&quot;type&quot;:&quot;iframe&quot;}">PLAY NOW</a>
+                                        <a class="pos-bottom block btn-sm btn secondary-bg text-center noradius weight-700 coming-soon-play" href="https://youtu.be/htnkGx46-JE" data-plugin-options="{&quot;type&quot;:&quot;iframe&quot;}" style="color:#fff!important">PLAY NOW</a>
                                     </span>
                                 </span>
 

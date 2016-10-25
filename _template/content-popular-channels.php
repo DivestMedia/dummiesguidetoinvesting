@@ -24,7 +24,7 @@ $channels = $newchannels;
 
 <section id="popular-channels">
     <div class="container">
-        <h4 class="uppercase size-25 bold"><a href="<?=site_url('beginners-manual')?>">Beginner's Manual</a></h4>
+        <h4 class="uppercase size-25 bold"><a href="<?=site_url('videos')?>">Beginner's Manual</a></h4>
         <hr>
     </div>
     <div class="container-fluid margin-top-50">

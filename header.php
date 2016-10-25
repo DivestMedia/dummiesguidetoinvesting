@@ -150,6 +150,6 @@
 		<div class="cont-askanexpert">
 			<a class="askanexpert-avatar" href="#ask-advisor-modal" data-toggle="modal" title="Ask an Expert"><img class="img-responsive" src="<?=CUSTOM_ASSETS?>askanexpert_avatar.png" alt=""></a>
 			<div class="askanexpert-message"><img class="img-responsive" src="<?=CUSTOM_ASSETS?>askanexpert-message.png" alt=""></div>
-			<a href="<?=home_url('/ask-an-expert')?>"><button class="btn btn-warning btn-block btn-custom yellow btn-askanexpert"> ASK AN EXPERT</button></a>
+			<button class="btn btn-warning btn-block btn-custom yellow btn-askanexpert" data-target="#ask-advisor-modal" data-toggle="modal" > ASK AN EXPERT</button>
 		</div>
 		<?

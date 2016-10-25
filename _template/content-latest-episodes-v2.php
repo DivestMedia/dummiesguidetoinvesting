@@ -1,96 +1,120 @@
 <?php
 global $post;
-query_posts([
-    'posts_per_page' => 1,
-    'posts_per_archive_page' => 1,
-    'paged' => get_query_var('paged'),
-    'post_type' => [
-        'iod_video'
-    ],
-    'orderby' => 'date',
-    'order' => 'DESC',
-    'post_status'      => 'publish',
-]);?>
+// query_posts([
+//     'posts_per_page' => 1,
+//     'posts_per_archive_page' => 1,
+//     'paged' => get_query_var('paged'),
+//     'post_type' => [
+//         'iod_video'
+//     ],
+//     'orderby' => 'date',
+//     'order' => 'DESC',
+//     'post_status'      => 'publish',
+// ]);
+$limit = 5;
+$video = json_decode(file_get_contents_curl(add_query_arg([
+    'page' => 1,
+    'per_page' => $limit,
+    'status' => 'publish'
+], ARTICLEBASEURL . 'wp-json/wp/v2/video')));
+
+
+?>
 <section class="dark video-episodes nopadding" style="background-color: #101010;">
     <div class="container">
         <?php
-        $iod = new InvestOrDivestWidget();
+        // $iod = new InvestOrDivestWidget();
+
+        $bigvideo = array_shift($video);
         ?>
         <div class="row grid-color">
             <div class="col-md-12">
                 <h4 class="uppercase size-25 bold"><strong>D</strong>ivest <strong>M</strong>edia TV</h4>
-                <hr />
+                <hr style="border-bottom: 5px solid #0072bb;"/>
             </div>
             <div class="col-md-8 col-sm-12 padding-top-20 video-episode-feature">
-                <?php while ( have_posts() ) : the_post(); ?>
+                <?php // while ( have_posts() ) : the_post(); ?>
 
                     <div class="embed-responsive embed-responsive-16by9">
                         <?php
-                        $iod_video = json_decode(get_post_meta( $post->ID, '_iod_video',true))->embed->url;
+                        // $iod_video = json_decode(get_post_meta( $post->ID, '_iod_video',true))->embed->url;
+                        $iod_video = $bigvideo->video_details->url;
                         echo wp_oembed_get($iod_video, '');
                         ?>
                         <div></div>
                     </div>
+                    <a href="http://marketmasterclass.com/videos/" target="_blank" style="
+                    text-transform: uppercase;
+                    color: #fff;
+                    font-size: 12px;
+                    "><marquee>For more investment videos, visit www.marketmasterclass.com or click this link now.</marquee></a>
                     <header class="margin-bottom-30 video-details">
-                        <h3><?=$post->post_title?></h3>
+                        <h3><?=$bigvideo->title->rendered?></h3>
                     </header>
 
-                    <small>Published on <?=date('M d, Y',strtotime($post->post_date))?></small>
-                    <p><?=$post->post_content?></p>
+                    <small>Published on <?=$bigvideo->video_details->date?></small>
+                    <p><?=$bigvideo->content->rendered?></p>
                     <div class="toggle toggle-transparent">
                         <div class="toggle">
                             <div class="toggle-content nopadding">
-                                <p><?=$post->post_content?></p>
+                                <p><?=$bigvideo->content->rendered?></p>
                             </div>
                             <label>Show</label>
                         </div>
                     </div>
-                <?php endwhile; ?>
+                <?php // endwhile; ?>
                 <? wp_reset_postdata(); ?>
             </div>
             <div class="col-md-4 col-sm-12">
-                <div class="col-md-12 col-sm-12 cont-more-episodes">
+                <div class="col-md-12 col-sm-12 cont-more-episodes margin-top-20">
                     <h4>More Episodes</h4>
                     <hr>
                     <?php
 
-                    $limit=6;
-                    $exclude = $post->ID;
-                    $category = '';
+                    // $limit=4;
+                    // $exclude = $post->ID;
+                    // $category = '';
 
                     $type = 'iod_video';
-                    $posts = get_posts([
-                        'post_type'   => $type,
-                        'post_status' => 'publish',
-                        'posts_per_page' => $limit,
-                        'posts_per_archive_page' => $limit,
-                        'orderby' => 'rand',
-                        'exclude' => $exclude,
-                        'taxonomy'=>'iod_category',
-                        'term'=> $category
-                    ]);
+                    // $posts = get_posts([
+                    //     'post_type'   => $type,
+                    //     'post_status' => 'publish',
+                    //     'posts_per_page' => $limit,
+                    //     'posts_per_archive_page' => $limit,
+                    //     'orderby' => 'rand',
+                    //     'exclude' => $exclude,
+                    //     'taxonomy'=>'iod_category',
+                    //     'term'=> $category
+                    // ]);
 
-                    if( !empty($posts)) {
-                        foreach ($posts as $p) {
-                            $iod_video = json_decode(get_post_meta( $p->ID, '_iod_video',true))->embed->url;
-                            $ytpattern = '/^.*(?:(?:youtu\.be\/|v\/|vi\/|u\/\w\/|embed\/)|(?:(?:watch)?\?v(?:i)?=|\&v(?:i)?=))([^#\&\?]*).*/';
-                            if(preg_match($ytpattern,$iod_video,$vid_id)){
-                                $vid_id = end($vid_id);
-                                $iod_video_thumbnail = 'http://img.youtube.com/vi/'.$vid_id.'/mqdefault.jpg';
-                            }else{
-                                $iod_video_thumbnail = 'http://www.askgamblers.com/uploads/original/isoftbet-2-5474883270a0f81c4b8b456b.png';
-                            };
+
+
+                    // http://www.marketmasterclass.com/wp-json/wp/v2/video?page=1&per_page=1&status=publish
+
+                    if( !empty($video)) {
+                        foreach ($video as $p) {
+                            // $iod_video = json_decode(get_post_meta( $p->ID, '_iod_video',true))->embed->url;
+                            $iod_video = $p->video_details->url;
+                            // $ytpattern = '/^.*(?:(?:youtu\.be\/|v\/|vi\/|u\/\w\/|embed\/)|(?:(?:watch)?\?v(?:i)?=|\&v(?:i)?=))([^#\&\?]*).*/';
+                            // if(preg_match($ytpattern,$iod_video,$vid_id)){
+                            //     $vid_id = end($vid_id);
+                            //     $iod_video_thumbnail = 'http://img.youtube.com/vi/'.$vid_id.'/mqdefault.jpg';
+                            // }else{
+                            //     $iod_video_thumbnail = 'http://www.askgamblers.com/uploads/original/isoftbet-2-5474883270a0f81c4b8b456b.png';
+                            // };
+
+                            $iod_video_thumbnail = $p->video_details->thumb;
                             ?>
                             <div class="video-item margin-bottom-20 col-md-12 col-sm-12 col-xs-12">
                                 <div class="col-md-5 col-sm-5 col-xs-6" style="padding: 0;">
-                                    <a href="http://youtube.com/watch?v=<?=$vid_id?>">
-                                        <img class="img-responsive episode-thumbnail" src="<?=$iod_video_thumbnail?>" alt="<?=$p->post_title?>" />
+                                    <a href="<?=$p->video_details->url?>">
+                                        <img class="img-responsive episode-thumbnail" src="<?=$iod_video_thumbnail?>" alt="<?=$p->title->rendered?>" />
                                     </a>
                                 </div>
-                                <div class="col-md-7 col-sm-7 col-xs-6 cont-episode-details">
-                                    <a href="http://youtube.com/watch?v=<?=$vid_id?>" title="<?=$p->post_title; ?>" class="title"><strong><?=$p->post_title; ?></strong></a>
-                                    <label><i class="fa fa-clock-o"></i> <?=get_post_meta($p->ID,'video-duration',true)?></label>
-                                    <label><i class="fa fa-fw fa-eye margin-right-10"></i><?=(get_post_meta($p->ID,'view-count',true) ?: 0)?></i> views</label>
+                                <div class="col-md-7 col-sm-7 col-xs-6 cont-episode-details" data-desc="<?=$p->content->rendered?>">
+                                    <a href="<?=$p->video_details->url?>" title="<?=$p->title->rendered?>" class="title"><strong><?=$p->title->rendered?></strong></a>
+                                    <label><i class="fa fa-clock-o"></i> <?=$p->video_details->duration?></label>
+                                    <label><i class="fa fa-fw fa-eye margin-right-10"></i><?=($p->video_details->views ?: 0)?></i> views</label>
                                 </div>
                             </div>
                             <?php

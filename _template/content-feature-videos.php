@@ -158,7 +158,7 @@ $post = $featuredvideos;
                                     <span class="block size-11 text-center color-theme uppercase">
                                         <!-- <?=date('F j, Y',strtotime($video['date']))?> -->
                                     </span>
-                                    <a class="pos-bottom block btn-sm btn secondary-bg text-center noradius weight-700 video-grid-play" href="<?=$video['link']?>"  data-plugin-options="{&quot;type&quot;:&quot;iframe&quot;}"><?=($featureButton ?: 'PLAY NOW')?></a>
+                                    <a class="pos-bottom block btn-sm btn secondary-bg text-center noradius weight-700 video-grid-play" href="<?=$video['link']?>"  data-plugin-options="{&quot;type&quot;:&quot;iframe&quot;}" style="color:#fff!important"><?=($featureButton ?: 'PLAY NOW')?></a>
 
 
                                 </span>

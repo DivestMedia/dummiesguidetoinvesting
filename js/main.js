@@ -351,6 +351,10 @@ jQuery(window).ready(function () {
                 .html( $itembox.find( '.title' )
                     .first()
                     .clone().text() );
+            $( '.video-episode-feature > p' )
+                .text( $itembox.find( '.cont-episode-details' ).data('desc') );
+
+				$('.toggle-transparent').hide();
             var $videoframe = $(
                 '<iframe class="embed-responsive-item" width="100%" height="100%" src="//www.youtube.com/v/' +
                 $id +
@@ -690,5 +694,5 @@ jQuery( function ( $ ) {
             return false;
         } );
 
-		
+
         } );

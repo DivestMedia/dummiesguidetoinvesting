@@ -207,7 +207,7 @@ echo $_footers;
 <?php if(!is_user_logged_in()): ?>
 	<script>
 	$(function(){
-		$('a[href$="accounts"]').click(function(e){
+		$('a[href$="accounts"],a[href$="glossary"]').click(function(e){
 			e.preventDefault();
 			$('#modal-restrict').modal('show');
 			return false;
