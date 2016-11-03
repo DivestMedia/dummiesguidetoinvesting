@@ -4,6 +4,7 @@ define('NEWSBASEURL','http://news.marketmasterclass.com/');
 define('ARTICLEBASEURL','http://www.marketmasterclass.com/');
 
 // include_once('_inc/backstage_template.php');
+include_once( get_stylesheet_directory() .'/_inc/restriction.class.php');
 include_once('_inc/custom-page-template.php');
 // include_once('_inc/widget-invest-or-divest.php');
 

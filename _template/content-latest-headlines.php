@@ -64,7 +64,7 @@ foreach ($post as $key => $news) {
                         </li>
                     </ul>
 
-                    <h4 class="text-left height-50 post-title nomargin"><a href="<?=$p['link']?>" class="video-play"><?=$p['description']?></a></h4>
+                    <h4 class="text-left height-50 post-title nomargin"><a href="<?=$p['link']?>"><?=$p['description']?></a></h4>
                 </div>
 
             <?php endforeach; ?>

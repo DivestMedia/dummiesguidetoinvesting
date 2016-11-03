@@ -9,25 +9,31 @@ $latestnews = [];
 // Get 5 Latest News for each category
 // WP_Query arguments
 
-$mainpost = $post;
+// $post = get_posts([
+// 	'posts_per_page' => 5,
+// 	'posts_per_archive_page' => 5,
+// 	'paged' => get_query_var('paged') ?: 1,
+// 	'post_type' => [
+// 		'iod_video'
+// 	],
+// 	'orderby' => 'date',
+// 	'order' => 'DESC',
+// 	'post_status'      => 'publish',
+// 	'taxonomy' => get_query_var('taxonomy'),
+// 	'iod_category' => get_query_var('taxonomy')=='iod_category' ? get_query_var('iod_category') : false
+// ]);
 
-$post = get_posts([
-	'posts_per_page' => 5,
-	'posts_per_archive_page' => 5,
-	'paged' => get_query_var('paged') ?: 1,
-	'post_type' => [
-		'iod_video'
-	],
-	'orderby' => 'date',
-	'order' => 'DESC',
-	'post_status'      => 'publish',
-	'taxonomy' => get_query_var('taxonomy'),
-	'iod_category' => get_query_var('taxonomy')=='iod_category' ? get_query_var('iod_category') : false
-]);
 
-foreach ($post as $key => $video) {
+$limit = 5;
+$videos = json_decode(file_get_contents_curl(add_query_arg([
+    'page' => 1,
+    'per_page' => $limit,
+    'status' => 'publish'
+], ARTICLEBASEURL . 'wp-json/wp/v2/video')));
+
+foreach ($videos as $key => $video) {
 	$vcats = [];
-	$video_cats = wp_get_post_terms($video->ID,'iod_category');
+	$video_cats = wp_get_post_terms($video->id,'iod_category');
 	$hascat = false;
 	if($video_cats){
 		$hascat = true;
@@ -40,23 +46,29 @@ foreach ($post as $key => $video) {
 	$iod_video_thumbnail = '';
 	if($video){
 		// $video = $video[0];
-		$iod_video = json_decode(get_post_meta( $video->ID, '_iod_video',true))->embed->url;
-		$ytpattern = '/^.*(?:(?:youtu\.be\/|v\/|vi\/|u\/\w\/|embed\/)|(?:(?:watch)?\?v(?:i)?=|\&v(?:i)?=))([^#\&\?]*).*/';
-		if(preg_match($ytpattern,$iod_video,$vid_id)){
-			$iod_video_thumbnail = 'http://img.youtube.com/vi/'.end($vid_id).'/mqdefault.jpg';
-		}else{
-			$iod_video_thumbnail = 'http://www.askgamblers.com/uploads/original/isoftbet-2-5474883270a0f81c4b8b456b.png';
-		};
+		// $iod_video = json_decode(get_post_meta( $video->ID, '_iod_video',true))->embed->url;
+		$iod_video = $video->video_details->url;
+		// $ytpattern = '/^.*(?:(?:youtu\.be\/|v\/|vi\/|u\/\w\/|embed\/)|(?:(?:watch)?\?v(?:i)?=|\&v(?:i)?=))([^#\&\?]*).*/';
+		// if(preg_match($ytpattern,$iod_video,$vid_id)){
+		// 	$iod_video_thumbnail = 'http://img.youtube.com/vi/'.end($vid_id).'/mqdefault.jpg';
+		// }else{
+		// 	$iod_video_thumbnail = 'http://www.askgamblers.com/uploads/original/isoftbet-2-5474883270a0f81c4b8b456b.png';
+		// };
+		$iod_video_thumbnail = $video->video_details->thumb;
 	}
 
 	$latestnews[] = [
 		'title' => $hascat ? implode(',',$vcats) : 'Video',
-		'description' => xyr_smarty_limit_chars($video->post_title,40),
-		'date' => $video->post_date,
-		'thumbnail' => $iod_video_thumbnail,
-		'link' => $iod_video ?: get_the_permalink($video->ID)
+		// 'description' => xyr_smarty_limit_chars($video->post_title,40),
+		'description' => xyr_smarty_limit_chars($video->title->rendered,40),
+		'date' => $video->video_details->date,
+		'thumbnail' => $video->video_details->thumb,
+		// 'thumbnail' => $iod_video_thumbnail,
+		// 'link' => $iod_video ?: get_the_permalink($video->ID)
+		'link' => $iod_video ?: $video->link
 	];
 }
+
 if(count($latestnews)>=1):
 	$post = $latestnews;
 	$GLOBALS['featureTitle'] = 'Beginner&apos;s <span>Manual</span>';
@@ -89,6 +101,7 @@ $sort = [
 	'assets' => 1,
 	'vehicles' => 2,
 	'strategies' => 3,
+	'how-to-videos' => 4,
 ];
 $newvideocats = [[],[],[],[]];
 foreach ($video_cats as $key => $cat) {
@@ -104,6 +117,7 @@ $featuredVidsCategories[] = [
 	'id' => 0,
 	'name' => 'All Videos',
 	'active' => get_query_var('taxonomy')!='iod_category',
+    'child' => [],
 	'link' => '/videos'
 ];
 

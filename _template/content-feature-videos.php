@@ -45,28 +45,35 @@ $featuredcats = [
 $featuredvideos = [];
 $excludevideoid = [];
 
-$featuredvids = get_posts([
-    'post_type'   => 'iod_video',
-    'post_status' => 'publish',
-    'posts_per_page' => 5,
-    'posts_per_archive_page' => 5,
-    'orderby' => 'date',
-    'order' => 'DESC',
-    'category__not_in' => [ 42 ],
-    // 'meta_key'   => '_is_featured',
-    // 'meta_value' => 1,
-    // 'post__not_in' => $excludevideoid,
-    'taxonomy'=>'iod_category',
-    'tax_query' => [
-        [
-            'taxonomy'  => 'iod_category',
-            'field'     => 'slug',
-            'terms'     => 'andy-penders', // exclude items media items in the news-cat custom taxonomy
-            'operator'  => 'NOT IN'
-        ]
-    ],
-    // 'term'=> $catobj->slug
-]);
+// $featuredvids = get_posts([
+//     'post_type'   => 'iod_video',
+//     'post_status' => 'publish',
+//     'posts_per_page' => 5,
+//     'posts_per_archive_page' => 5,
+//     'orderby' => 'date',
+//     'order' => 'DESC',
+//     'category__not_in' => [ 42 ],
+//     // 'meta_key'   => '_is_featured',
+//     // 'meta_value' => 1,
+//     // 'post__not_in' => $excludevideoid,
+//     'taxonomy'=>'iod_category',
+//     'tax_query' => [
+//         [
+//             'taxonomy'  => 'iod_category',
+//             'field'     => 'slug',
+//             'terms'     => 'andy-penders', // exclude items media items in the news-cat custom taxonomy
+//             'operator'  => 'NOT IN'
+//         ]
+//     ],
+//     // 'term'=> $catobj->slug
+// ]);
+
+$limit = 5;
+$featuredvids = json_decode(file_get_contents_curl(add_query_arg([
+    'page' => 1,
+    'per_page' => $limit,
+    'status' => 'publish'
+], ARTICLEBASEURL . 'wp-json/wp/v2/video')));
 
 
 foreach ($featuredvids as $videohere) {
@@ -75,39 +82,41 @@ foreach ($featuredvids as $videohere) {
     $iod_video_thumbnail = '';
     if($videohere){
         // $videohere = $videohere[0];
-        $excludevideoid[] = $videohere->ID;
-        $iod_video = json_decode(get_post_meta( $videohere->ID, '_iod_video',true))->embed->url;
-        $ytpattern = '/^.*(?:(?:youtu\.be\/|v\/|vi\/|u\/\w\/|embed\/)|(?:(?:watch)?\?v(?:i)?=|\&v(?:i)?=))([^#\&\?]*).*/';
-        if(preg_match($ytpattern,$iod_video,$vid_id)){
-            $iod_video_thumbnail = 'http://img.youtube.com/vi/'.end($vid_id).'/mqdefault.jpg';
-        }else{
-            $iod_video_thumbnail = 'http://www.askgamblers.com/uploads/original/isoftbet-2-5474883270a0f81c4b8b456b.png';
-        };
+        $excludevideoid[] = $videohere->id;
+        // $iod_video = json_decode(get_post_meta( $videohere->ID, '_iod_video',true))->embed->url;
+        $iod_video = $videohere->video_details->url;
+        $iod_video_thumbnail = $videohere->video_details->thumb;
+        // $ytpattern = '/^.*(?:(?:youtu\.be\/|v\/|vi\/|u\/\w\/|embed\/)|(?:(?:watch)?\?v(?:i)?=|\&v(?:i)?=))([^#\&\?]*).*/';
+        // if(preg_match($ytpattern,$iod_video,$vid_id)){
+        //     $iod_video_thumbnail = 'http://img.youtube.com/vi/'.end($vid_id).'/mqdefault.jpg';
+        // }else{
+        //     $iod_video_thumbnail = 'http://www.askgamblers.com/uploads/original/isoftbet-2-5474883270a0f81c4b8b456b.png';
+        // };
 
-        $video_cats = wp_get_post_terms($videohere->ID,'iod_category');
-
-        $hascat = false;
-        $videocat = '';
-        $videocatlink = '';
-        if($video_cats){
-            $hascat = true;
-            if(count($video_cats)){
-                $videocat = $video_cats[0]->name;
-                $videocatlink = get_term_link($video_cats[0]->term_id,'iod_category');
-            }
-            foreach ($video_cats as $vidcat) {
-                $vcats[] = '<a href="'.get_term_link($vidcat->term_id,'iod_category').'">'.$vidcat->name.'</a>';
-            }
-        }
+        // $video_cats = wp_get_post_terms($videohere->ID,'iod_category');
+        //
+        // $hascat = false;
+        // $videocat = '';
+        // $videocatlink = '';
+        // if($video_cats){
+        //     $hascat = true;
+        //     if(count($video_cats)){
+        //         $videocat = $video_cats[0]->name;
+        //         $videocatlink = get_term_link($video_cats[0]->term_id,'iod_category');
+        //     }
+        //     foreach ($video_cats as $vidcat) {
+        //         $vcats[] = '<a href="'.get_term_link($vidcat->term_id,'iod_category').'">'.$vidcat->name.'</a>';
+        //     }
+        // }
 
         $featuredvideos[] = [
-            'title' => $videocat ,
-            'titlelink' => $videocatlink,
-            'sec_title' => get_post_meta( $videohere->ID, 'int_company',true),
-            'description' => trim_text($videohere->post_title,40),
-            'date' => $videohere->post_date,
+            'title' => $videohere->video_details->cat ,
+            'titlelink' => '#',
+            'sec_title' => '',
+            'description' => trim_text($videohere->title->rendered,40),
+            'date' => $videohere->video_details->date,
             'thumbnail' => $iod_video_thumbnail,
-            'link' => $iod_video ?: get_the_permalink($videohere->ID)
+            'link' => $iod_video ?: get_the_permalink($videohere->id)
         ];
     }
 }
@@ -164,7 +173,7 @@ $post = $featuredvideos;
                                 </span>
                             </span>
 
-                            <img class="img-responsive" src="<?=$video['thumbnail']?>" alt="" style="  height: 381px;">
+                            <img class="img-responsive" src="<?=$video['thumbnail']?>" alt="" style="  min-height: 381px;">
                         </figure>
                     </div>
                 <?php endif; ?>
@@ -298,80 +307,6 @@ $post = $featuredvideos;
 
             </div>
         </div>
-        <?php if(is_home()): ?>
-            <div class="row">
-                <?php
-
-                $mainpost = $post;
-                $featuredcats = [
-                    [
-                        'category' => 'Daily Stock Picks',
-                        'title' => 'Kenyon Martin',
-                        'description' => 'Daily Stock Picks',
-                        'link' => '/video/kenyon-martin/#all-videos',
-                    ],
-                    [
-                        'category' => 'Bruce Curran',
-                        'title' => 'Bruce Curran',
-                        'description' => 'How to be Dumbass',
-                        'link' => '/video/kenyon-martin/#all-videos',
-                    ],
-                    [
-                        'category' => 'MMC Headlines',
-                        'title' => 'Global Headlines',
-                        'description' => 'Investment Tips',
-                        'link' => '/video/kenyon-martin/#all-videos',
-                    ],
-                    [
-                        'category' => 'Bruce Curran Interviews',
-                        'title' => 'Interviews',
-                        'description' => 'World News',
-                        'link' => '/video/world-news/#all-videos',
-                    ]
-                ];
-                $featuredvideos = [];
-                foreach ($featuredcats as $cat) {
-
-                    $catobj = get_term_by('slug', sanitize_title($cat['category']) , 'iod_category' );
-                    $featuredvideos[] = $catobj;
-                }
-                ?>
-                <?php if(count($featuredvideos)):
-                    $catThumbs = get_option('taxonomy_image_plugin');
-                    if(!empty($catThumbs)){
-                        ?>
-                        <div class="heading-title heading-dotted text-left margin-top-20 ">
-                            <a href="<?=site_url('videos')?>"><h4>Our<span> Channels</span></h4></a>
-                        </div>
-                        <?php foreach($featuredvideos as $fk=>$fv):
-
-                            $img = wp_get_attachment_image_src( $catThumbs[$fv->term_id], 'mid-image', false );
-                            ?>
-                            <div class="col-md-3 col-sm-6 col-xs-6 col-2xs-12">
-                                <div class="item-box noshadow hover-box margin-bottom-10 channel-item-box">
-                                    <div class="img-hover">
-                                        <a href="<?=(get_term_link($fv->term_id,'iod_category'))?>#all-videos">
-                                            <figure style="border-bottom: 5px solid rgb(30, 205, 110); height: 200px; background-image: url(<?=$img[0]?>); background-size: cover; background-repeat: no-repeat;" class="lazyOwl" data-src=""></figure>
-                                        </a>
-
-                                        <h4 class="text-center margin-top-20 height-50 post-title ">
-                                            <a href="<?=(get_term_link($fv->term_id,'iod_category'))?>#all-videos">
-                                                <?=($featuredcats[$fk]['title'])?>
-                                            </a>
-                                        </h4>
-                                    </div>
-                                </div>
-                            </div>
-                        <?php endforeach;
-                    }?>
-                <?php endif; ?>
-            </div>
-            <?php if(!$featureNoMore): ?>
-                <div class="heading-title heading-dotted text-right margin-top-20 ">
-                    <a href="<?=site_url('videos')?>"><h4>Watch more<span> Videos</span></h4></a>
-                </div>
-            <?php endif; ?>
-        <?php endif; ?>
     </div>
 </section>
 

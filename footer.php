@@ -177,7 +177,7 @@ get_template_part( '_template/content', 'vip-subscribers' );
 							</div>
 							<div class="row">
 								<div class="col-md-12">
-									<button type="submit" id="submit-advisor-modal" class="btn btn-3d btn-teal pull-right margin-top-30" data-dismiss="modal">
+									<button type="submit" id="submit-advisor-modal" class="btn btn-3d btn-teal pull-right margin-top-30" >
 										Send Now
 									</button>
 								</div>

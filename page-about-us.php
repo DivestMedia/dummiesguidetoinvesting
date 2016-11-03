@@ -5,7 +5,7 @@ get_header();
 ?>
 
 
-	
+
 				<div>
 					<img class="img-responsive" src="<?=CUSTOM_ASSETS?>samplebannerabout.png" alt="">
 				</div>
@@ -38,9 +38,7 @@ get_header();
 								<img class="pull-left img-responsive team-member" src="<?=CUSTOM_ASSETS?>daniel.jpg" alt="" />
 								<p class="cont-description show-less">
 									<label class="title"><strong>Daniel Stracey</strong></label>
-									Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-									<br><br>
-									Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+									
 								</p>
 								<button class="btn btn-xs btn-custom yellow btn-team-show-more">show more</button>
 							</div>
@@ -75,10 +73,10 @@ get_header();
 							<div class="cont-team">
 								<img class="pull-left img-responsive team-member" src="<?=CUSTOM_ASSETS?>anwar.jpg" alt="" />
 								<p class="cont-description show-less">
-									<label class="title"><strong>Anwar Ratag</strong></label>
+									<label class="title"><strong>Jenner Alagao</strong></label>
 									Creative Director
 									<br><br>
-									Anwar has more than two decades of experience in Visual/Creative and Multimedia Design, as well as over ten years of involvement in Web Design and Development, and he has worked for various Network, Multimedia, Ad Agency and Online Gaming companies.
+									Jenner has more than two decades of experience in Visual/Creative and Multimedia Design, as well as over ten years of involvement in Web Design and Development, and he has worked for various Network, Multimedia, Ad Agency and Online Gaming companies.
 									<br><br>
 									An artist since birth, with exceptional skills in traditional and digital arts, he loves drawing, sketching and painting, and is also highly skilled in photography and videography and 3-D animation, as well as being well versed in HTML and CSS, and with extensive knowledge in PHP and Java. Also an avid fan of heavy metal music and video games. He just loves anything computer-related.
 								</p>
@@ -91,10 +89,10 @@ get_header();
 							<div class="cont-team">
 								<img class="pull-left img-responsive team-member" src="<?=CUSTOM_ASSETS?>shaun.jpg" alt="" />
 								<p class="cont-description show-less">
-									<label class="title"><strong>Shaun Hurley</strong></label>
+									<label class="title"><strong>Kenyon Martin</strong></label>
 									Sales Director
 									<br><br>
-									Shaun started off in sales at a very young age, trading in the markets before moving into insurance and pensions. Fresh out of his teens he took a bold decision to take his future into his own hands and invested some money in stocks, managing to make a good profit in the process. He then left England while still in his early twenties and moved to Europe where he lived in several different countries while engaging in his favorite pastime; gambling. He eventually became a full-time gambler and spent a few years living the hectic life of a punter, before moving to Asia and deciding to step out of the gambling circuit in order to settle down, stepping back into sales with the safe gamble of Divest Media. He loves making nothing into something and turning ideas into money.
+									Kenyon started off in sales at a very young age, trading in the markets before moving into insurance and pensions. Fresh out of his teens he took a bold decision to take his future into his own hands and invested some money in stocks, managing to make a good profit in the process. He then left England while still in his early twenties and moved to Europe where he lived in several different countries while engaging in his favorite pastime; gambling. He eventually became a full-time gambler and spent a few years living the hectic life of a punter, before moving to Asia and deciding to step out of the gambling circuit in order to settle down, stepping back into sales with the safe gamble of Divest Media. He loves making nothing into something and turning ideas into money.
 								</p>
 								<button class="btn btn-xs btn-custom yellow btn-team-show-more">show more</button>
 							</div>
@@ -122,15 +120,13 @@ get_header();
 						<div class="col-md-12">
 							<img class="img-responsive" src="<?=CUSTOM_ASSETS?>ads.jpg" alt="">
 						</div>
-					</div>	
+					</div>
 					<?php include_once('_template/world-news-slider.php');?>
 				</div>
 			</section>
-	
+
 
 
 <?
 
 get_footer();
-
-			

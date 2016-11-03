@@ -20,6 +20,9 @@ get_header();
 
 if(is_archive('iod_video')){
 	include 'archive-iod_video.php';
+}elseif(is_archive('articles')){
+
+	include 'archive-articles';
 }else{
 
 ?>

@@ -596,7 +596,7 @@ jQuery( function ( $ ) {
                     .remove();
 
 
-                $( '#planning .item-box' )
+                $( '.tab-pane.active .item-box' )
                     .each( function () {
                         $newvidcolumnwrapper.append( $( this )
                             .clone() );
@@ -669,7 +669,6 @@ jQuery( function ( $ ) {
             var $videourl = $( this )
                 .attr( 'href' );
 
-                console.log($videourl);
             if ( $videourl.search( 'youtu.be/' ) != -1 ) {
                 var $id = $videourl.split( 'youtu.be/' )[ 1 ];
             } else {
@@ -693,6 +692,84 @@ jQuery( function ( $ ) {
 
             return false;
         } );
+
+
+
+			$('.btn-loadmore').click(function(){
+
+				// Show progress bar while waiting
+				$(this).parent().find('.progress').remove();
+				$(this).parent().prepend('<div class="progress"> <div class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div> </div> ');
+
+				// Call JSON API from Market Masterclass
+				var baseurl = "http://www.marketmasterclass.com";
+				var limit = 12;
+    var cat = $(this).closest('.tab-pane')
+        .data( 'cat' );
+    var page = $(this).closest('.tab-pane')
+        .data( 'page' );
+		page = parseInt(page) + 1;
+
+		var data = {
+			page : page,
+			per_page : limit,
+			status : 'publish',
+		};
+
+		data['filter[tax_query][taxonomy]'] = 'iod_category';
+		data['filter[tax_query][field]'] = 'slug';
+		data['filter[tax_query][terms]'] = ['investment-assets','starting-out','investment-vehicles','investment-strategies'].join(',');
+		data['filter[tax_query][operator]'] = 'IN';
+
+		if(cat!='all'){
+			data['filter[taxonomy]'] = 'iod_category';
+			data['filter[iod_category]'] = cat;
+
+		}
+var thisbtn = this;
+		$.getJSON({
+			url : baseurl + "/wp-json/wp/v2/video",
+			data : data,
+			crossDomain: true,
+			type: 'GET',
+		},function(data){
+			$(thisbtn).parent().find('.progress').remove();
+			if(data.length > 0){
+				for (var i = 0; i < data.length; i++) {
+					var newitembox = '<div class="col-sm-4 margin-bottom-20"> <div class="item-box noshadow hover-box margin-top-10"> <figure> <span class="item-hover"> <span class="overlay dark-5"></span> </span> <span class="item-description"> <span class="overlay primary-bg "></span> <span class="inner padding-top-0"> <h3> <em> <a href="#" style="color:#fff"></a> </em> ' + data[i].title.rendered + '<small class="block text-white margin-top-10">' + data[i].video_details.date + '</small> </h3> <span class="block size-11 text-center color-theme uppercase"> <a class=" btn-sm btn primary-bg text-center noradius weight-700 video-grid-play" href="' + data[i].video_details.url + '" data-plugin-options="{&quot;type&quot;:&quot;iframe&quot;}">PLAY NOW</a> </span> </span> </span> <div class="embed-responsive embed-responsive-16by9"><img class="img-responsive embed-responsive-item" src="' + data[i].video_details.thumb + '" alt=""> </div></figure> </div> </div>';
+
+					$(newitembox).insertBefore($(thisbtn).parent());
+				}
+
+
+				$(thisbtn).closest('.tab-pane')
+			        .data( 'page', page + 1 );
+
+					if(data.length < 12){
+						$(thisbtn).remove();
+					}
+			}else{
+				$(thisbtn).remove();
+			}
+		});
+
+
+
+			});
+
+
+		jQuery(window).load(function() {
+		    $('#submit-advisor-modal').click(function(){
+		        $('#ask-advisor-modal').modal('hide');
+		    });
+
+		    if(window.location.hash) {
+		        var hash = window.location.hash;
+		        if($(hash).length>0 && hash == '#ask-advisor-modal'){
+		            $(hash).modal('show');
+		        }
+		    }
+		});
 
 
         } );
