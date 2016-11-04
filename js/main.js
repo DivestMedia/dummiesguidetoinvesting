@@ -716,16 +716,21 @@ jQuery( function ( $ ) {
 			status : 'publish',
 		};
 
-		data['filter[tax_query][taxonomy]'] = 'iod_category';
-		data['filter[tax_query][field]'] = 'slug';
-		data['filter[tax_query][terms]'] = ['investment-assets','starting-out','investment-vehicles','investment-strategies'].join(',');
-		data['filter[tax_query][operator]'] = 'IN';
+		// data['filter[tax_query][taxonomy]'] = 'iod_category';
+		// data['filter[tax_query][field]'] = 'slug';
+		// data['filter[tax_query][terms]'] = ['investment-assets','starting-out','investment-vehicles','investment-strategies'].join(',');
+		// data['filter[tax_query][operator]'] = 'IN';
 
 		if(cat!='all'){
 			data['filter[taxonomy]'] = 'iod_category';
 			data['filter[iod_category]'] = cat;
 
+		}else{
+			data['filter[taxonomy]'] = 'iod_category';
+			data['filter[iod_category]'] = ['investment-assets','starting-out','investment-vehicles','investment-strategies'].join(',');
 		}
+
+		
 var thisbtn = this;
 		$.getJSON({
 			url : baseurl + "/wp-json/wp/v2/video",
