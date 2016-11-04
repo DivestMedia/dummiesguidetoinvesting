@@ -3,8 +3,20 @@
 
 global $post;
 get_header();
+query_posts([
+    'posts_per_page'   => 12,
+	'posts_per_archive_page'   => 12,
+	'paged' 			=> get_query_var('paged') ?: 1,
+	'category_name'    	   => 'articles',
+	'orderby'          => 'date',
+	'order'            => 'DESC',
+	'post_type'        => 'post',
+	'post_status'      => 'publish',
+	'suppress_filters' => true,
+]);
 $featuredPostNews =  get_posts([
 	'posts_per_page'   => 12,
+	'posts_per_archive_page'   => 12,
 	'paged' 			=> get_query_var('paged') ?: 1,
 	'category_name'    	   => 'articles',
 	'orderby'          => 'date',

@@ -323,7 +323,12 @@ add_action( 'wp_ajax_nopriv_save_advisor_message', 'save_advisor_message' );
 function save_advisor_message(){
     if(!($_POST['is_ajax']=='true')) exit("0");
     $contact = $_POST['contact'];
-    $result = sendEmail('support@divestmedia.com','New Message for an Advisor','Reply Back','mailto:'.$contact['email'],'accounts-email','Email Address : '.$contact['email'],$contact['message'],"There's a message for ".$contact['advisor']);
+
+    $contact['email'] = sanitize_email($contact['email']);
+    if(empty($contact['email'])) exit("0");
+    $contact['message'] = sanitize_text_field($contact['message']);
+
+    $result = sendEmail('support@divestmedia.com','New Message for an Advisor','Reply Back','mailto:'.$contact['email'],'accounts-email','Email Address : '.$contact['email'],esc_textarea($contact['message']),"There's a message for ".$contact['advisor']);
     exit("1");
 }
 

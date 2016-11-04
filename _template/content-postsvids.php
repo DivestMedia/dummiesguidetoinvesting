@@ -100,20 +100,17 @@ $categories = [
                                     'status' => 'publish'
                                 ];
 
-
-
                                 if($cat['slug']!=='all'){
                                     $args['filter[taxonomy]'] = 'iod_category';
                                     $args['filter[iod_category]'] = $cat['slug'];
                                 }else{
-                                    // $args['filter[tax_query][taxonomy]'] = 'iod_category';
-                                    // $args['filter[tax_query][field]'] = 'slug';
-                                    // $args['filter[tax_query][terms]'] = implode(',',['investment-assets','starting-out','investment-vehicles','investment-strategies']);
-                                    // $args['filter[tax_query][operator]'] = 'IN';
+                                    $args['filter[tax_query][taxonomy]'] = 'iod_category';
+                                    $args['filter[tax_query][field]'] = 'slug';
+                                    $args['filter[tax_query][terms]'] = implode(',',['investment-assets']);
+                                    $args['filter[tax_query][operator]'] = 'IN';
 
-
-                                    $args['filter[taxonomy]'] = 'iod_category';
-                                    $args['filter[iod_category]'] = implode(',',['investment-assets','starting-out','investment-vehicles','investment-strategies']);
+                                    // $args['filter[taxonomy]'] = 'iod_category';
+                                    // $args['filter[iod_category]'] = implode(',',['investment-assets','starting-out','investment-vehicles','investment-strategies']);
                                 }
 
                                 $videos = json_decode(file_get_contents_curl(add_query_arg($args, ARTICLEBASEURL . 'wp-json/wp/v2/video')));
