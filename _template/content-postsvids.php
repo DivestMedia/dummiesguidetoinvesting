@@ -43,7 +43,7 @@ $categories = [
     [
         'name' => 'Strategies',
         'slug' => 'investment-strategies',
-        'cat' => 145,
+        'cat' => 151,
     ],
     [
         'name' => 'How to Videos',
