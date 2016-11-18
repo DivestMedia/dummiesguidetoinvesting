@@ -43,6 +43,20 @@ get_header();
 			</div>
 			<div class="col-md-6 col-sm-12 col-xs-12 margin-bottom-20">
 				<div class="cont-team">
+					<img class="pull-left img-responsive team-member" src="<?=CUSTOM_ASSETS?>anwar.jpg" alt="" />
+					<p class="cont-description show-less">
+						<label class="title"><strong>Jenner Alagao</strong></label>
+						Creative Director
+						<br><br>
+						Jenner has more than two decades of experience in Visual/Creative and Multimedia Design, as well as over ten years of involvement in Web Design and Development, and he has worked for various Network, Multimedia, Ad Agency and Online Gaming companies.
+						<br><br>
+						An artist since birth, with exceptional skills in traditional and digital arts, he loves drawing, sketching and painting, and is also highly skilled in photography and videography and 3-D animation, as well as being well versed in HTML and CSS, and with extensive knowledge in PHP and Java. Also an avid fan of heavy metal music and video games. He just loves anything computer-related.
+					</p>
+					<button class="btn btn-xs btn-custom yellow btn-team-show-more">show more</button>
+				</div>
+			</div>
+			<!-- <div class="col-md-6 col-sm-12 col-xs-12 margin-bottom-20">
+				<div class="cont-team">
 					<img class="pull-left img-responsive team-member" src="<?=CUSTOM_ASSETS?>cameron.jpg" alt="" />
 					<p class="cont-description show-less">
 						<label class="title"><strong>Cameron Clark</strong></label>
@@ -50,9 +64,9 @@ get_header();
 					</p>
 					<button class="btn btn-xs btn-custom yellow btn-team-show-more">show more</button>
 				</div>
-			</div>
+			</div> -->
 		</div>
-		<div class="row margin-bottom-10">
+		<!-- <div class="row margin-bottom-10">
 			<div class="col-md-6 col-sm-12 col-xs-12 margin-bottom-20">
 				<div class="cont-team">
 					<img class="pull-left img-responsive team-member" src="<?=CUSTOM_ASSETS?>lem.jpg" alt="" />
@@ -81,7 +95,7 @@ get_header();
 					<button class="btn btn-xs btn-custom yellow btn-team-show-more">show more</button>
 				</div>
 			</div>
-		</div>
+		</div> -->
 		<div class="row margin-bottom-10">
 			<div class="col-md-6 col-sm-12 col-xs-12 margin-bottom-20">
 				<div class="cont-team">
