@@ -1,7 +1,7 @@
 <?php
 global $post;
 get_header();
-
+$hide_bios = true;
 ?>
 <div>
 	<img class="img-responsive" src="<?=CUSTOM_ASSETS?>samplebannerabout.png" alt="">
@@ -25,6 +25,8 @@ get_header();
 	</div>
 </section>
 <!-- /FEATURES -->
+
+<?php if(!$hide_bios){?>
 <section class="section-ourteam">
 	<div class="container">
 		<header class="text-center margin-bottom-20">
@@ -126,6 +128,7 @@ get_header();
 		</div>
 	</div>
 </section>
+<?php }?>
 <section>
 	<div class="container">
 		<div class="row cont-ads-long">
