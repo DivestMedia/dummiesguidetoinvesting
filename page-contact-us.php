@@ -154,7 +154,7 @@ get_header();
 					<strong><i class="fa fa-phone"></i> Phone:</strong>
 					<a href="tel:+63 917 887 8376">+63 917 887 8376</a>
 				</span> -->
-				<span class="block"><strong><i class="fa fa-envelope"></i> Email:</strong> <a href="mailto:helpme@divestmedia.com">helpme@divestmedia.com</a></span>
+				<span class="block"><strong><i class="fa fa-envelope"></i> Email:</strong> <a href="mailto:support@divestmedia.com">support@divestmedia.com</a></span>
 			</p>
 			<hr />
 
