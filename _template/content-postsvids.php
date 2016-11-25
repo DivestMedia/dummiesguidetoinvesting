@@ -127,7 +127,7 @@ $categories = [
                                         if($post){
                                             $iod_video = $post->video_details->url;
                                             $iod_video_thumbnail = $post->video_details->thumb;
-                                            $iod_title = $post->video_details->cat;
+                                            $iod_title = $post->title->rendered;
                                         }
 
                                         ?>
