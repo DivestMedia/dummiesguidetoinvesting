@@ -321,6 +321,17 @@ add_action( 'wp_ajax_save_advisor_message', 'save_advisor_message' );
 add_action( 'wp_ajax_nopriv_save_advisor_message', 'save_advisor_message' );
 
 function save_advisor_message(){
+
+    $whitelist = array(
+        '127.0.0.1',
+        '::1'
+    );
+
+    if(in_array($_SERVER['REMOTE_ADDR'], $whitelist)){
+        exit("0");
+    }
+
+
     if(!($_POST['is_ajax']=='true')) exit("0");
     $contact = $_POST['contact'];
 
