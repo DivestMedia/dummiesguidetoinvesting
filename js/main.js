@@ -727,10 +727,10 @@ jQuery( function ( $ ) {
 
 		}else{
 			data['filter[taxonomy]'] = 'iod_category';
-			data['filter[iod_category]'] = ['investment-assets','starting-out','investment-vehicles','investment-strategies'].join(',');
+			data['filter[iod_category]'] = ['investment-assets','starting-out','investment-vehicles','investment-strategies','how-to-videos'].join(',');
 		}
 
-		
+
 var thisbtn = this;
 		$.getJSON({
 			url : baseurl + "/wp-json/wp/v2/video",

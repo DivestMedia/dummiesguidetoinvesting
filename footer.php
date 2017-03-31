@@ -198,6 +198,13 @@ get_template_part( '_template/content', 'vip-subscribers' );
 
 <!-- SCROLL TO TOP -->
 <a href="#" id="toTop"></a>
+<!-- PRELOADER -->
+<div id="preloader">
+	<div class="inner">
+		<span class="loader"></span>
+	</div>
+</div><!-- /PRELOADER -->
+
 <?php
 wp_footer();
 global $_footers;

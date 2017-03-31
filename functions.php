@@ -11,6 +11,7 @@ include_once('_inc/custom-page-template.php');
 
 
 remove_action('wp_head', 'wp_generator');
+remove_action('wp_head', 'wp_shortlink_wp_head', 10, 0);
 
 add_filter('login_errors', create_function('$a', "return 'Error: Login';"));
 

@@ -104,18 +104,13 @@ $categories = [
                                     $args['filter[taxonomy]'] = 'iod_category';
                                     $args['filter[iod_category]'] = $cat['slug'];
                                 }else{
-                                    // $args['filter[tax_query][taxonomy]'] = 'iod_category';
-                                    // $args['filter[tax_query][field]'] = 'slug';
-                                    // $args['filter[tax_query][terms]'] = implode(',',['investment-assets']);
-                                    // $args['filter[tax_query][operator]'] = 'IN';
-                                    // var_dump(add_query_arg($args, ARTICLEBASEURL . 'wp-json/wp/v2/video'));
                                     $args['filter[taxonomy]'] = 'iod_category';
                                     $args['filter[iod_category]'] = implode(',',['investment-assets','starting-out','investment-vehicles','investment-strategies']);
                                 }
 
-
-
                                 $videos = json_decode(file_get_contents_curl(add_query_arg($args, ARTICLEBASEURL . 'wp-json/wp/v2/video')));
+
+
                                 if(count($videos)):
                                     // if ( $featuredVids['posts']->have_posts() ) :
 
@@ -123,12 +118,15 @@ $categories = [
                                         $iod_title = '';
                                         $_c_margin_top = '';
                                         $iod_video = '';
+                                        $iod_vid_title = '';
                                         $iod_video_thumbnail = '';
                                         if($post){
                                             $iod_video = $post->video_details->url;
                                             $iod_video_thumbnail = $post->video_details->thumb;
                                             $iod_title = $post->video_details->cat;
+                                            $iod_vid_title = $post->title->rendered;
                                         }
+
 
                                         ?>
                                         <div class="col-sm-4 margin-bottom-20">
@@ -141,10 +139,10 @@ $categories = [
                                                         <span class="overlay primary-bg "></span>
                                                         <span class="inner padding-top-0">
                                                             <h3>
-                                                                <em>
-                                                                    <a href="#" style="color:#fff"></a>
-                                                                </em>
-                                                                <?=$iod_title?>
+                                                                <?=$iod_vid_title?>
+                                                                <!-- <em>
+                                                                    <a href="#" style="color:#fff"><?=$iod_title?></a>
+                                                                </em> -->
                                                                 <small class="block text-white margin-top-10"><?=($post->video_details->date)?></small>
                                                             </h3>
                                                             <span class="block size-11 text-center color-theme uppercase">
