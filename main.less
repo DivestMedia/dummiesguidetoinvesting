@@ -1,5 +1,13 @@
 // out: main.css, sourcemap: true, compress: true
 body{
+	#cont-terms-and-conditions{
+	    ul{
+	        list-style:none !important;
+	    }   
+	    ol li:not(:first-child){
+	        list-style:none !important;
+	    }
+	}   
 	.section-title-container{
 		background-color: #2b2b2b;
 		h3{
@@ -719,6 +727,36 @@ section{
 	margin-bottom: 20px;
 	padding: 15px 50px;
 	background: #f2cd00;
+}
+
+section#featured-headlines{
+	h4{
+		margin-bottom: 0;
+		text-transform: uppercase;
+	}
+	hr{
+		max-width: 100px!important;
+		display: block;
+		border-bottom: 5px solid #f2cd00;
+		margin: 0;
+		box-shadow: none;
+		background-image: none;
+	}
+
+	.owl-carousel{
+		.img-hover{
+			h4{
+				overflow: hidden;
+			}
+			img,figure{
+				border-bottom: 5px solid #f2cd00;
+				background-size: cover;
+				background-repeat: no-repeat;
+				height: 200px;
+				background-position: center;
+			}
+		}
+	}
 }
 
 section#most-viewed{

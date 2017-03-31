@@ -43,7 +43,7 @@ $categories = [
     [
         'name' => 'Strategies',
         'slug' => 'investment-strategies',
-        'cat' => 145,
+        'cat' => 151,
     ],
     [
         'name' => 'How to Videos',
@@ -125,6 +125,7 @@ $categories = [
                                             $iod_video_thumbnail = $post->video_details->thumb;
                                             $iod_title = $post->video_details->cat;
                                             $iod_vid_title = $post->title->rendered;
+
                                         }
 
 

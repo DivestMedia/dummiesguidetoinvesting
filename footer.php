@@ -55,7 +55,7 @@ get_template_part( '_template/content', 'vip-subscribers' );
 	<hr/>
 	<div class="row ">
 		<div class="col-sm-6">
-			&copy; 2016 DummiesGuidetoInvesting.com. All rights reserved
+			&copy; <?=date("Y")?> <? bloginfo();?>. All rights reserved
 		</div>
 		<div class="col-sm-6 text-right">
 			<?php
